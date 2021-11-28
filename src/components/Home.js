@@ -13,11 +13,11 @@ export default function Home() {
 
             <div><a className="strivbut btn btn-success mt-5">Get Started</a></div>
 
-            <div><a href="/#" className="text-decoration-none text-white mt-2">Already a Striv3r Member?</a></div>
+            <div><a href="/login" className="text-decoration-none text-white mt-2">Already a Striv3r Member?</a></div>
 
-            <div><a className="strivbut btn btn-success mt-2">Sign in</a></div>
+            <div><a href="/login"  className="strivbut btn btn-success mt-2">Sign in</a></div>
 
-            <div className=" mt-4 " ><a className="text-decoration-none text-white">Visit: </a> <a href="/#" className="text-decoration-none text-success">Striv3r.com</a>
+            <div className=" mt-4 " ><a className="text-decoration-none text-white">Visit: </a> <a href="https://www.striv3r.com/" className="text-decoration-none text-success">Striv3r.com</a>
                 <a className="text-decoration-none text-white"> for more</a>
             </div>
 
