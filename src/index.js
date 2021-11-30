@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from "axios";
+axios.defaults.baseURL = 'https://hidden-crag-24748.herokuapp.com/api/v1';
 
 ReactDOM.render(
   <React.StrictMode>
