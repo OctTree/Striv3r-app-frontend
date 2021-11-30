@@ -42,6 +42,7 @@ export default function Login() {
                     let state_value = response.data.status
                     if (state_value === "success") {
                         localStorage.setItem('token', response.data.data.token)
+                        localStorage.setItem('name', response.data.data.user.user.name)
                         history('/user');
                     }
                     localStorage.setItem("access-token", response.data);

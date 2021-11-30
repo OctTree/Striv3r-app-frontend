@@ -5,7 +5,7 @@ export default function User() {
     return (
         <Container fluid>
 
-            <label>Welcome to userpage</label>
+            <label>Welcome <b>{localStorage.getItem('name')}</b></label>
 
 
         </Container>
