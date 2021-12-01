@@ -11,7 +11,7 @@ export default function Home() {
 
             <div className="StrivWelPar mt-2"> Build a Plan. Comit to Action. Reward your consitency. Surprise yourself with habit-stacking</div>
 
-            <div><a className="strivbut btn btn-success mt-5">Get Started</a></div>
+            <div><a href="/register" className="strivbut btn btn-success mt-5">Get Started</a></div>
 
             <div><a href="/login" className="text-decoration-none text-white mt-2">Already a Striv3r Member?</a></div>
 
