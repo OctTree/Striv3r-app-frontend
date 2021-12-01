@@ -46,4 +46,23 @@
 
 .strivbut {
     background: #2AF509;
+    padding: 0.5rem 2.5rem;
+}
+
+.margin-top-home{
+    margin-top: 10rem;
+}
+
+.mt-8{
+    margin-top: 2.0rem;
+}
+
+.w-30
+{
+    width: 35%;
+}
+
+.h-30
+{
+    height: 35%;
 }

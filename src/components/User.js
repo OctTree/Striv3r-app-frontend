@@ -7,7 +7,6 @@ export default function User() {
 
             <label>Welcome <b>{localStorage.getItem('name')}</b></label>
 
-
         </Container>
 
     );

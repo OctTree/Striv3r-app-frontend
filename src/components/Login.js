@@ -1,15 +1,16 @@
 import './Design.css'
 
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from 'axios'
+import Logo from '../images/avatar.png'
 
 const login_state = {
     email: '',
     password: '',
     login_email_error: '',
     login_password_error: '',
-    error:''
+    error: ''
 }
 
 export default function Login() {
@@ -27,16 +28,20 @@ export default function Login() {
         }
 
         if (loginObject.email === '' && loginObject.password === '') {
-            
-            setloginObject({ ...loginObject, login_email_error: 'Email is Required', login_password_error: 'Password is Required' })
+
+            setloginObject({
+                ...loginObject,
+                login_email_error: 'Email is Required',
+                login_password_error: 'Password is Required'
+            })
             console.log(loginObject.login_email_error)
         } else if (loginObject.email === '') {
-            setloginObject({ ...loginObject, login_email_error: 'Email is Required' })
+            setloginObject({...loginObject, login_email_error: 'Email is Required'})
         } else if (loginObject.password === '') {
-            setloginObject({ ...loginObject, login_password_error: 'Password is Required' })
+            setloginObject({...loginObject, login_password_error: 'Password is Required'})
         } else {
             setIsLoading(true)
-            axios.post('/login', login_parameter, { headers: { 'Content-Type': 'application/json', Accept: "*/*" } })
+            axios.post('/login', login_parameter, {headers: {'Content-Type': 'application/json', Accept: "*/*"}})
                 .then(response => {
                     setIsLoading(false)
                     let state_value = response.data.status
@@ -47,22 +52,21 @@ export default function Login() {
                     }
                     localStorage.setItem("access-token", response.data);
                 }).catch(error => {
-                    console.log(error.response)
-                    setIsLoading(false)
-                    let state_value = error.response.status
-                    if (state_value === 401) {
-                        if (error.response.data.errors[0] === "Please confirm your account") {
-                            
-                            setloginObject({
-                                ...loginObject, error: error.response.data.errors[0]
-                            })
-                        } else {
-                            setloginObject({
-                                ...loginObject, error: error.response.data.errors[0]
-                            })
-                        }
+                setIsLoading(false)
+                let state_value = error.response.status
+                if (state_value === 401) {
+                    if (error.response.data.errors[0] === "Please confirm your account") {
+
+                        setloginObject({
+                            ...loginObject, error: error.response.data.errors[0]
+                        })
+                    } else {
+                        setloginObject({
+                            ...loginObject, error: error.response.data.errors[0]
+                        })
                     }
-                });
+                }
+            });
         }
 
     }
@@ -71,20 +75,27 @@ export default function Login() {
         <div className="col-12 bg-dark vh-100 justify-content-center">
             <div className="col-lg-4 col-md-4 col-12 p-4">
 
-                <form onSubmit={handleLoginSubmit}>
+                <div className="mt-3 text-center">
+                    <img src={Logo} alt="some text"/>
+                </div>
 
-                    <label for="basic-url" class="form-label text-white">LOGIN</label>
+                <div className="mt-3 text-center">
+                    <label htmlFor="basic-url" className="form-label text-white">Login</label>
+                </div>
+
+                <form onSubmit={handleLoginSubmit} className="mt-3">
+
 
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text" id="addon-wrapping">@</span>
                         <input type="email" class="form-control" placeholder="Email" aria-label="Username"
 
-                            onChange={event => setloginObject({
-                                ...loginObject, email: event.target.value,
-                                login_email_error: '', error:''
-                            })}
+                               onChange={event => setloginObject({
+                                   ...loginObject, email: event.target.value,
+                                   login_email_error: '', error: ''
+                               })}
 
-                            aria-describedby="addon-wrapping" />
+                               aria-describedby="addon-wrapping"/>
                     </div>
                     <label for="basic-url" class="form-label text-danger">{loginObject.login_email_error}</label>
 
@@ -92,20 +103,22 @@ export default function Login() {
                         <span class="input-group-text" id="addon-wrapping">@</span>
                         <input type="password" class="form-control" placeholder="Password" aria-label="Username"
 
-                            onChange={event => setloginObject({
-                                ...loginObject, password: event.target.value,
-                                login_password_error: '', error: ''
-                            })}
+                               onChange={event => setloginObject({
+                                   ...loginObject, password: event.target.value,
+                                   login_password_error: '', error: ''
+                               })}
 
-                            aria-describedby="addon-wrapping" />
+                               aria-describedby="addon-wrapping"/>
                     </div>
                     <label for="basic-url" class="form-label text-danger">{loginObject.login_password_error}</label>
 
                     <div><a href="/#" className="text-decoration-none text-white">Forgot Password?</a></div>
 
-                    
 
-                    <button type="submit" className="strivbut btn btn-success mt-2">{IsLoading ? "Please Wait...." : "LOGIN"}</button>
+                    <div className="text-center mt-8">
+                        <button type="submit"
+                                className="strivbut btn btn-success mt-4">{IsLoading ? "Please Wait...." : "LOGIN"}</button>
+                    </div>
 
                     <div>
                         <label for="basic-url" class="form-label text-danger">{loginObject.error}</label>
