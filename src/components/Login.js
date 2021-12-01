@@ -75,7 +75,7 @@ export default function Login() {
     }
 
     return (
-        <div className="col-12 bg-dark justify-content-center">
+        <div className="col-12 vh-100 bg-dark justify-content-center" style={{height: "100%"}}>
             <div className="col-lg-4 col-md-4 col-12 p-4">
 
                 <div className="mt-3 text-center">
