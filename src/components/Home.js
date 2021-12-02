@@ -24,7 +24,9 @@ export default function Home() {
                 Member?</a>
             </div>
 
-            <div className="mt-2"><a href="/login" className="strivbut btn btn-success mt-2">Sign in</a></div>
+            <div className="mt-2">
+                <a href="/login" className="strivbuttwo btn btn-success mt-2">Sign in</a>
+            </div>
             <div className="d-flex icon-social">
                 <div className="icon-social-one">
                     <img src={InstagramIcon} alt="some text"/>

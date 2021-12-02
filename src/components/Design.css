@@ -46,6 +46,7 @@
 
 .strivbut {
     background: #2AF509;
+    color: #0B0A0A;
     padding: 0.5rem 2.5rem;
 }
 
@@ -67,6 +68,15 @@
     margin-right: 2rem;
 }
 
+.icon-social{
+    margin-top: 1rem;
+    margin-left: 40rem;
+}
+
+.icon-social-one{
+    margin-left: 3rem;
+}
+
 @media only screen and (max-width: 500px) {
     .mt-8 {
         margin-top: 2.0rem;
@@ -78,6 +88,15 @@
 
     .logout-button{
         margin-right: 0.5rem;
+    }
+
+    .icon-social{
+        margin-top: 1rem;
+        margin-left: 3rem;
+    }
+
+    .icon-social-one{
+        margin-left: 2rem;
     }
 
 }
@@ -114,14 +133,10 @@
     line-height: 28px;
     letter-spacing: 0em;
     text-align: center;
-
 }
 
-.icon-social{
-    margin-top: 1rem;
-    margin-left: 3rem;
-}
-
-.icon-social-one{
-    margin-left: 2rem;
+.strivbuttwo{
+    background: #2AF509;
+    color: #0B0A0A;
+    padding: 0.5rem 3.2rem;
 }
