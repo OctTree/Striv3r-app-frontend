@@ -92,13 +92,27 @@
 
     .icon-social{
         margin-top: 1rem;
-        margin-left: 3.3rem;
+        margin-left: 8.3rem;
     }
 
     .icon-social-one{
         margin-left: 2rem;
     }
 
+}
+
+/*@media only screen and (max-width: 450px) {*/
+/*    .icon-social{*/
+/*        margin-top: 1rem;*/
+/*        margin-left: 6.6rem;*/
+/*    }*/
+/*}*/
+
+@media only screen and (max-width: 400px) {
+    .icon-social{
+        margin-top: 1rem;
+        margin-left: 1.9rem;
+    }
 }
 
 .w-30 {
