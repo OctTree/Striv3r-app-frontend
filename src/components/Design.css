@@ -97,7 +97,11 @@
 }
 
 .default-profile-pic{
-    height: 4rem;
-    width: 5rem;
     border-radius: 3px;
+}
+
+.nav-bar-brand{
+    color: white;
+    text-decoration: none;
+    font-size: 2rem;
 }

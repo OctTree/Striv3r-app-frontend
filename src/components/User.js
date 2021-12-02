@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {Container} from 'react-bootstrap'
 import axios from "axios";
 import {useNavigate} from 'react-router-dom';
-import defaultAvatar from "../images/defaultavatar.png"
+import defaultAvatar from "../images/avatar.png"
 
 const userParameters = {
     name: "",
@@ -56,9 +56,9 @@ export default function User() {
 
     return (
         <div>
-            <nav className="navbar navbar-light bg-light justify-content-between">
+            <nav className="navbar navbar-light bg-dark justify-content-between">
                 <div className="striv3-nav-bannar">
-                    <a href="/users" className="navbar-brand">Striv3r</a>
+                    <a href="/users" className="nav-bar-brand">Striv3r</a>
                 </div>
 
                 <button className="btn btn-sm btn-danger logout-button" onClick={handleLogout}>Logout</button>
@@ -76,46 +76,46 @@ export default function User() {
 
                   <div className="row mt-3">
                      <div className="col-md-3 col-sm-3">
-                         <strong>Name</strong>
+                         <strong className="text-white">Name</strong>
                      </div>
                       <div className="col-md-3 col-sm-3 mt-sm-1">
-                          {user.name}
+                          <simple className="text-white">{user.name}</simple>
                       </div>
                   </div>
 
                   <div className="row mt-3">
                       <div className="col-md-3 col-sm-3">
-                          <strong>Email</strong>
+                          <strong className="text-white">Email</strong>
                       </div>
                       <div className="col-md-3 col-sm-3 mt-sm-1">
-                          {user.email}
+                         <simple className="text-white">{user.email}</simple>
                       </div>
                   </div>
 
                   <div className="row mt-3">
                       <div className="col-md-3 col-sm-3">
-                          <strong>Phone</strong>
+                          <strong className="text-white">Phone</strong>
                       </div>
                       <div className="col-md-3 col-sm-3 mt-sm-1">
-                          {user.phone}
+                          <simple className="text-white">{user.phone}</simple>
                       </div>
                   </div>
 
                   <div className="row mt-3">
                       <div className="col-md-3 col-sm-3">
-                          <strong>Zip</strong>
+                          <strong className="text-white">Zip</strong>
                       </div>
                       <div className="col-md-3 col-sm-3 mt-sm-1">
-                          {user.zip}
+                          <simple className="text-white">{user.zip}</simple>
                       </div>
                   </div>
 
                   <div className="row mt-3">
                       <div className="col-md-3 col-sm-3">
-                          <strong>Referral</strong>
+                          <strong className="text-white">Referral</strong>
                       </div>
                       <div className="col-md-3 col-sm-3 mt-sm-1">
-                          {user.referral}
+                          <simple className="text-white">{user.referral}</simple>
                       </div>
                   </div>
 
