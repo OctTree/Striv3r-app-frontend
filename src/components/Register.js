@@ -5,8 +5,8 @@ import Image from '../images/logo.jpg'
 import Vector from "../images/Vector.png"
 import EmailIcon from "../images/VectorOne.png"
 import PasswordIcon from "../images/VectorPassword.png"
-import ZipIcon from "../images/VectorZip.png"
-import IphoneIcon from "../images/VectorPhone.png"
+import ZipIcon from "../images/zip.png"
+import IphoneIcon from "../images/phone.png"
 import ReferralIcon from "../images/VectorRefferal.png"
 
 const signup_state = {
@@ -47,8 +47,6 @@ export default function Register() {
                 referral: signUpObject.referral
             }
         }
-        console.log(signup_parameter)
-
         if (signUpObject.name === '') {
             setSignUpObject({...signUpObject, signup_name_error: true})
         } else if (signUpObject.email === '') {
@@ -107,7 +105,7 @@ export default function Register() {
                 <form onSubmit={handleSignupSubmit} className="mt-2">
 
                     <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping"><img src={Vector} /></span>
+                        <span class="input-group-text" id="addon-wrapping"><img src={Vector} alt="some text" /></span>
                         <input type="text" class="form-control" placeholder="Name" aria-label="Username"
                                onChange={event => setSignUpObject({
                                    ...signUpObject, name: event.target.value,
@@ -119,7 +117,7 @@ export default function Register() {
                            class="form-label text-danger">{signUpObject.signup_name_error ? "Name is Required" : ""}</label>
 
                     <div class="input-group flex-nowrap mt-3">
-                        <span class="input-group-text" id="addon-wrapping"><img src={EmailIcon} /></span>
+                        <span class="input-group-text" id="addon-wrapping"><img src={EmailIcon} alt="some text" /></span>
                         <input type="email" class="form-control" placeholder="Email" aria-label="email"
                                onChange={event => setSignUpObject({
                                    ...signUpObject, email: event.target.value,
@@ -131,7 +129,7 @@ export default function Register() {
                            class="form-label text-danger">{signUpObject.signup_email_error ? "Email is Required" : ""}</label>
 
                     <div class="input-group flex-nowrap mt-3">
-                        <span class="input-group-text" id="addon-wrapping"><img src={IphoneIcon} /></span>
+                        <span class="input-group-text" id="addon-wrapping"><img src={IphoneIcon} alt="some text" /></span>
                         <input type="text" class="form-control" placeholder="Phone(Optional)" aria-label="Phone"
                                onChange={event => setSignUpObject({
                                    ...signUpObject, phone: event.target.value,
@@ -142,7 +140,7 @@ export default function Register() {
                     <label for="basic-url" class="form-label text-danger"></label>
 
                     <div class="input-group flex-nowrap mt-3">
-                        <span class="input-group-text" id="addon-wrapping"><img src={PasswordIcon} /></span>
+                        <span class="input-group-text" id="addon-wrapping"><img src={PasswordIcon} alt="some text" /></span>
                         <input type="password" class="form-control" placeholder="Password" aria-label="Password"
                                onChange={event => setSignUpObject({
                                    ...signUpObject, password: event.target.value,
@@ -154,7 +152,7 @@ export default function Register() {
                            class="form-label text-danger">{signUpObject.signup_password_error ? "Password is Required" : ""}</label>
 
                     <div class="input-group flex-nowrap mt-3">
-                        <span class="input-group-text" id="addon-wrapping"><img src={PasswordIcon} /></span>
+                        <span class="input-group-text" id="addon-wrapping"><img src={PasswordIcon} alt="some text" /></span>
                         <input type="password" class="form-control" placeholder="Confirm Password" aria-label="Password"
                                onChange={event => setSignUpObject({
                                    ...signUpObject, cpassword: event.target.value,
@@ -166,7 +164,7 @@ export default function Register() {
                            class="form-label text-danger">{signUpObject.signup_cpassword_error ? "Password and Confirm Password is not matching" : ""}</label>
 
                     <div class="input-group flex-nowrap mt-3">
-                        <span class="input-group-text" id="addon-wrapping"><img src={ZipIcon} /></span>
+                        <span class="input-group-text" id="addon-wrapping"><img src={ZipIcon} alt="some text"  /></span>
                         <input type="text" class="form-control" placeholder="ZIP" aria-label="zip"
                                onChange={event => setSignUpObject({
                                    ...signUpObject, zip: event.target.value,
@@ -176,7 +174,7 @@ export default function Register() {
                     </div>
 
                     <div className="input-group flex-nowrap mt-4">
-                        <span className="input-group-text" id="addon-wrapping"><img src={ReferralIcon}/></span>
+                        <span className="input-group-text" id="addon-wrapping"><img src={ReferralIcon} alt="some text" /></span>
                         <input type="text" className="form-control" placeholder="Referral/Discount" aria-label="zip"
                                onChange={event => setSignUpObject({
                                    ...signUpObject, referral: event.target.value

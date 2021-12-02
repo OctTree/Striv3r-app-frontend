@@ -6,7 +6,7 @@ import axios from 'axios'
 import Logo from '../images/avatar.png'
 import EmailIcon from "../images/VectorOne.png"
 import PasswordIcon from "../images/VectorPassword.png"
-import ReferralIcon from "../images/VectorRefferal.png";
+
 
 const login_state = {
     email: '',
@@ -49,6 +49,7 @@ export default function Login() {
                     setIsLoading(false)
                     let state_value = response.data.status
                     if (state_value === "success") {
+                        localStorage.setItem("user_id", response.data.data.user.user.id)
                         localStorage.setItem('token', response.data.data.token)
                         localStorage.setItem('name', response.data.data.user.user.name)
                         history('/user');
@@ -75,7 +76,7 @@ export default function Login() {
     }
 
     return (
-        <div className="col-12 vh-100 bg-dark justify-content-center" style={{height: "100%"}}>
+        <div className="col-12 vh-200 bg-dark justify-content-center" style={{height: "100%"}}>
             <div className="col-lg-4 col-md-4 col-12 p-4">
 
                 <div className="mt-3 text-center">
@@ -90,7 +91,7 @@ export default function Login() {
 
 
                     <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping"><img src={EmailIcon}/></span>
+                        <span class="input-group-text" id="addon-wrapping"><img src={EmailIcon} alt="some text"/></span>
                         <input type="email" class="form-control" placeholder="Email" aria-label="Username"
 
                                onChange={event => setloginObject({
@@ -103,7 +104,7 @@ export default function Login() {
                     <label for="basic-url" class="form-label text-danger">{loginObject.login_email_error}</label>
 
                     <div class="input-group flex-nowrap mt-3">
-                        <span class="input-group-text" id="addon-wrapping"><img src={PasswordIcon}/></span>
+                        <span class="input-group-text" id="addon-wrapping"><img src={PasswordIcon} alt="some text" /></span>
                         <input type="password" class="form-control" placeholder="Password" aria-label="Username"
 
                                onChange={event => setloginObject({

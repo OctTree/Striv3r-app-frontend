@@ -17,8 +17,8 @@ export default function Home() {
 
             <div><a href="/login"  className="strivbut btn btn-success mt-2">Sign in</a></div>
 
-            <div className=" mt-4 " ><a className="text-decoration-none text-white">Visit: </a> <a href="https://www.striv3r.com/" className="text-decoration-none text-success">Striv3r.com</a>
-                <a className="text-decoration-none text-white"> for more</a>
+            <div className=" mt-4 " ><a href="https://www.striv3r.com/" className="text-decoration-none text-white">Visit: </a> <a href="https://www.striv3r.com/" className="text-decoration-none text-success">Striv3r.com</a>
+                <a href="https://www.striv3r.com/" className="text-decoration-none text-white"> for more</a>
             </div>
 
         </Container>

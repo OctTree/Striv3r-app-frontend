@@ -7,13 +7,13 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    display:block;
-    text-align:center;
+    display: block;
+    text-align: center;
 }
 
-.StrivText{
-    left: calc(50% - 347px/2 + 1px);
-    top: calc(50% - 156px/2 - 216px);
+.StrivText {
+    left: calc(50% - 347px / 2 + 1px);
+    top: calc(50% - 156px / 2 - 216px);
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -24,7 +24,7 @@
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.StrivWel{
+.StrivWel {
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -33,7 +33,7 @@
     color: #FFFFFF;
 }
 
-.StrivWelPar{
+.StrivWelPar {
     left: 19px;
     top: 335px;
     font-family: Roboto;
@@ -49,27 +49,55 @@
     padding: 0.5rem 2.5rem;
 }
 
-.bg-dark-auth{
+.bg-dark-auth {
     background-color: black;
     height: 100%;
 }
 
-.margin-top-home{
+.margin-top-home {
     margin-top: 10rem;
 }
 
-@media only screen and (max-width: 500px) {
-    .mt-8{
-        margin-top: 2.0rem;
-    }
+.striv3-nav-bannar {
+    margin-left: 4rem;
+    font-weight: 800;
 }
 
-.w-30
-{
+.logout-button{
+    margin-right: 2rem;
+}
+
+@media only screen and (max-width: 500px) {
+    .mt-8 {
+        margin-top: 2.0rem;
+    }
+
+    .striv3-nav-bannar {
+        margin-left: 0.5rem;
+    }
+
+    .logout-button{
+        margin-right: 0.5rem;
+    }
+
+}
+
+.w-30 {
     width: 35%;
 }
 
-.h-30
-{
+.h-30 {
     height: 35%;
+}
+
+.page-not-found{
+    text-align: center;
+    margin-top: 10rem;
+    color: red;
+}
+
+.default-profile-pic{
+    height: 4rem;
+    width: 5rem;
+    border-radius: 3px;
 }
