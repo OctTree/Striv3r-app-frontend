@@ -17,8 +17,8 @@
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 96px;
-    line-height: 112px;
+    font-size: 60px;
+    line-height: 90px;
     text-align: center;
     color: #2AF509;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -104,4 +104,24 @@
     color: white;
     text-decoration: none;
     font-size: 2rem;
+}
+
+.get-started{
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: center;
+
+}
+
+.icon-social{
+    margin-top: 1rem;
+    margin-left: 3rem;
+}
+
+.icon-social-one{
+    margin-left: 2rem;
 }
