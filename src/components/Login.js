@@ -3,9 +3,9 @@ import './Design.css'
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from 'axios'
-import Logo from '../images/avatar.png'
-import EmailIcon from "../images/VectorOne.png"
-import PasswordIcon from "../images/VectorPassword.png"
+import Logo from '../images/userprofile.svg'
+import EmailIcon from "../images/email.svg"
+import PasswordIcon from "../images/password.svg"
 
 
 const login_state = {

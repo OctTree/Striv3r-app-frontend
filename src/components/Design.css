@@ -68,9 +68,14 @@
     margin-right: 2rem;
 }
 
+.twitter-icon{
+    height: 1rem;
+    width: 1rem;
+}
+
 .icon-social{
     margin-top: 1rem;
-    margin-left: 40rem;
+    margin-left: 39.5rem;
 }
 
 .icon-social-one{
@@ -92,7 +97,7 @@
 
     .icon-social{
         margin-top: 1rem;
-        margin-left: 8.3rem;
+        margin-left: 8.2rem;
     }
 
     .icon-social-one{

@@ -1,8 +1,8 @@
 import './Design.css'
 import {Container} from 'react-bootstrap'
-import InstagramIcon from "../images/instagram.png"
-import FacebookIcon from "../images/facebook.png"
-import TwitterIcon from "../images/twitter.png"
+import InstagramIcon from "../images/instagram.svg"
+import FacebookIcon from "../images/facebook.svg"
+import TwitterIcon from "../images/twitter.svg"
 
 
 export default function Home() {
@@ -35,7 +35,7 @@ export default function Home() {
                     <img src={FacebookIcon} alt="some text ml-2"/>
                 </div>
                 <div className="icon-social-one">
-                    <img src={TwitterIcon} alt="some text ml-2"/>
+                    <img src={TwitterIcon} alt="some text ml-2" className="twitter-icon"/>
                 </div>
             </div>
 

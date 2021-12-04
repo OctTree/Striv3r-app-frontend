@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import Image from '../images/logo.jpg'
-import Vector from "../images/Vector.png"
-import EmailIcon from "../images/VectorOne.png"
-import PasswordIcon from "../images/VectorPassword.png"
-import ZipIcon from "../images/zip.png"
+import Vector from "../images/name.svg"
+import EmailIcon from "../images/email.svg"
+import PasswordIcon from "../images/password.svg"
+import ZipIcon from "../images/zip.svg"
 import IphoneIcon from "../images/phone.png"
 import ReferralIcon from "../images/VectorRefferal.png"
 
