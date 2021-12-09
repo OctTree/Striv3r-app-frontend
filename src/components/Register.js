@@ -68,7 +68,7 @@ export default function Register() {
 
                         history.push('/auth');
                     }
-                    localStorage.setItem("access-token", response.data);
+                    localStorage.setItem("token", response.data);
                 }).catch(error => {
                     setIsLoading(false)
 
