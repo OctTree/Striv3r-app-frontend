@@ -82,6 +82,40 @@
     margin-left: 3rem;
 }
 
+.plans-meditation-button{
+    background-color: #E5E5E5;
+    border-color: #E5E5E5;
+    width: 200px;
+    height: 42px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.plans-striv3-text-color{
+    color: #2AF509;
+}
+
+.plan-how-long{
+    margin-left: 11px;
+}
+
+.plan-input-box{
+    width: 30px;
+    height: 30px;
+    background-color: #E5E5E5;
+}
+
+.plan-input-box:focus{
+    border-color: #E5E5E5;
+}
+
+.plan-text-area-class{
+    background-color: #E5E5E5;
+    width: 300px;
+    height: 70px;
+    margin-left: 10px;
+}
+
 @media only screen and (max-width: 500px) {
     .mt-8 {
         margin-top: 2.0rem;

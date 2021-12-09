@@ -187,7 +187,7 @@ export default function Register() {
 
                     <div className="mt-2 text-center">
                         <button
-                            className="strivbut btn btn-success mt-2">{IsLoading ? "Please Wait...." : "REGISTER"}</button>
+                            className="strivbut btn btn-success mt-2">{IsLoading ? "Please Wait...." : "Continue"}</button>
                     </div>
 
                     <div>
