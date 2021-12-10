@@ -5,7 +5,7 @@ import Image from '../images/logo.jpg'
 import Vector from "../images/name.svg"
 import EmailIcon from "../images/email.svg"
 import PasswordIcon from "../images/password.svg"
-import ZipIcon from "../images/zip.svg"
+import ZipIcon from "../images/icon_one.svg"
 import IphoneIcon from "../images/phone.png"
 import ReferralIcon from "../images/VectorRefferal.png"
 
