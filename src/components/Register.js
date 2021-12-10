@@ -70,6 +70,7 @@ export default function Register() {
                         history('/plans/new');
                     }
                     localStorage.setItem("token", response.data.data.token);
+                    localStorage.setItem("user_id", response.data.data.user.id);
                 }).catch(error => {
                     setIsLoading(false)
 
