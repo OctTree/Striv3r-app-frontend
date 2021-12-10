@@ -7,7 +7,7 @@ import axios from 'axios'
 const plan_state = {
     days_per_week: '',
     minutes: '',
-    day_on_week: '',
+    day_on_week: [],
     time_on_day: '',
     goals: '',
     error: ''
@@ -17,29 +17,40 @@ export default function Plan() {
 
     const [planObject, setplanObject] = useState(plan_state);
     const [IsLoading, setIsLoading] = useState(false);
+    const [selectedDay, setSelectedDay] = useState([]);
     const history = useNavigate();
+
+    const handleChange = event => {
+        const { checked, value } = event.currentTarget;
+
+        setSelectedDay(
+            prev => checked
+                ? [...prev, value]
+                : prev.filter(val => val !== value)
+        );
+    };
 
     const handlePlanSubmit = (event) => {
         event.preventDefault();
-        
+        console.log(selectedDay)
         const signup_parameter = {
             plan: {
                 days_per_week: planObject.days_per_week,
                 minutes: planObject.minutes,
-                day_on_week: planObject.day_on_week,
+                day_on_week: selectedDay,
                 time_on_day: planObject.time_on_day,
                 goals: planObject.goals,
             }
         }
-        if (planObject.days_per_week === '') {
-            setplanObject({ ...planObject, error: "Days Per week is required" })
+        if (planObject.days_per_week > 7) {
+            setplanObject({ ...planObject, error: "Days Per week should be 7 or less then 7" })
         }
         else {
             setIsLoading(true)
             axios.post('/plans', signup_parameter, { headers: { 'Content-Type': 'application/json', Accept: "*/*", Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then(response => {
                     setIsLoading(false)
-                    
+
                     let state_value = response.status
                     if (state_value === 200) {
                         history.push('/user');
@@ -102,7 +113,7 @@ export default function Plan() {
 
                                 onChange={event => setplanObject({
                                     ...planObject, days_per_week: event.target.value,
-                                     error: ''
+                                    error: ''
                                 })}
 
                             /><span className="text-white ms-2">Days/Wk</span>
@@ -112,7 +123,7 @@ export default function Plan() {
 
                                 onChange={event => setplanObject({
                                     ...planObject, minutes: event.target.value,
-                                     error: ''
+                                    error: ''
                                 })}
 
                             /><span className="text-white ms-2">Minutes</span>
@@ -125,28 +136,30 @@ export default function Plan() {
 
                     <div className="col-12 mt-4 d-flex">
                         <div className="col-3 ms-2">
-                            <input type="checkbox" className="plan-input-box" /><span className="text-white ms-2">Mon</span>
+                            <input type="checkbox" value="monday"
+                                onChange={handleChange}
+                                className="plan-input-box" /><span className="text-white ms-2">Mon</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" className="plan-input-box" /><span className="text-white ms-2">Tues</span>
+                            <input type="checkbox" value="tuesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">Tues</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" className="plan-input-box" /><span className="text-white ms-2">Wed</span>
+                            <input type="checkbox" value="wednesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">Wed</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" className="plan-input-box" /><span className="text-white ms-2">Thurs</span>
+                            <input type="checkbox" value="thursday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">Thurs</span>
                         </div>
                     </div>
 
                     <div className="col-12 mt-4 d-flex">
                         <div className="col-3 ms-2">
-                            <input type="checkbox" className="plan-input-box" /><span className="text-white ms-2">Fri</span>
+                            <input type="checkbox" value="friday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">Fri</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" className="plan-input-box" /><span className="text-white ms-2">Sat</span>
+                            <input type="checkbox" value="saturday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">Sat</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" className="plan-input-box" /><span className="text-white ms-2">Sun</span>
+                            <input type="checkbox" value="sunday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">Sun</span>
                         </div>
                     </div>
 
@@ -171,7 +184,12 @@ export default function Plan() {
                     </div>
 
                     <div className="mt-2">
-                        <textarea placeholder="(List out Here)" className="plan-text-area-class"></textarea>
+                        <textarea placeholder="(List out Here)"
+                            onChange={event => setplanObject({
+                                ...planObject, goals: event.target.value,
+                                error: ''
+                            })}
+                            className="plan-text-area-class"></textarea>
                     </div>
 
                 </div>
