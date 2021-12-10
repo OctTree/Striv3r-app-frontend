@@ -53,7 +53,8 @@ export default function Plan() {
 
                     let state_value = response.status
                     if (state_value === 200) {
-                        history.push('/user');
+                        alert("Information updated sucessfully")
+                        history('/user');
                     }
                     localStorage.setItem("access-token", response.data);
                 }).catch(error => {

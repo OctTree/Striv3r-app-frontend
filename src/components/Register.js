@@ -62,13 +62,14 @@ export default function Register() {
             axios.post('/users', signup_parameter, {headers: {'Content-Type': 'application/json', Accept: "*/*"}})
                 .then(response => {
                     setIsLoading(false)
+                    console.log(response)
 
                     let state_value = response.status
                     if (state_value === 200) {
-
-                        history.push('/auth');
+                        
+                        history('/plans/new');
                     }
-                    localStorage.setItem("token", response.data);
+                    localStorage.setItem("token", response.data.data.token);
                 }).catch(error => {
                     setIsLoading(false)
 
@@ -187,7 +188,7 @@ export default function Register() {
 
                     <div className="mt-2 text-center">
                         <button
-                            className="strivbut btn btn-success mt-2">{IsLoading ? "Please Wait...." : "Continue"}</button>
+                            className="strivbut btn btn-success mt-2" onClick={handleSignupSubmit}>{IsLoading ? "Please Wait...." : "Continue"}</button>
                     </div>
 
                     <div>
