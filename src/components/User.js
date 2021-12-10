@@ -14,11 +14,24 @@ const userParameters = {
     referral: ""
 }
 
+const planParameters = {
+    time_of_day: "",
+    day_on_week: "",
+    days_per_week: "",
+    minutes: "",
+    goals: ""
+}
+
 export default function User() {
+
+    const history = useNavigate();
+
+    const [user, setUser] = useState(userParameters);
+    const [plan, setPlan] = useState(planParameters);
 
     useEffect(() => {
 
-        if (localStorage.getItem("token")) {
+        if (localStorage.getItem("token") !== null) {
             axios.get('/users/' + localStorage.getItem("user_id"), {
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,17 +39,15 @@ export default function User() {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             }).then(res => {
+                console.log(res.data.data.plans[res.data.data.plans.length - 1])
                 setUser(res.data.data.user)
+                setPlan(res.data.data.plans[res.data.data.plans.length - 1])
             })
         }
         else {
             history("/login")
         }
     }, [localStorage.getItem("user_id")]);
-
-    const history = useNavigate();
-
-    const [user, setUser] = useState(userParameters);
 
     const handleLogout = (e) => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -115,7 +126,7 @@ export default function User() {
                             </div>
                         </div>
                         <div className="col-12">
-                            <strong className="text-white">My goal is to meditate __ x / week for __ minutes / session</strong>
+                            <strong className="text-white">My goal is to meditate {plan.days_per_week} / week for {plan.minutes} minutes / session</strong>
                         </div>
                     </div>
 
@@ -149,8 +160,8 @@ export default function User() {
                 </div>
                 <nav className="navbar navbar-light bg-dark justify-content-between">
 
-                    <button className="btn btn-sm btn-danger logout-button" onClick={handleLogout}>Logout</button>
-                    <button className="btn btn-sm btn-danger logout-button">Contact</button>
+                    <button className="btn btn-sm btn-link logout-button" onClick={handleLogout}>Logout</button>
+                    <button className="btn btn-sm btn-link logout-button">Contact</button>
                 </nav>
             </Container>
 
