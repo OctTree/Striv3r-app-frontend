@@ -5,6 +5,7 @@ import Register from './components/Register';
 import User from './components/User';
 import PageNotFound from "./components/PageNotFound"
 import Plan from "./components/Plan";
+import Payment from "./components/Payment"
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/register" exact element={<Register />}></Route>
                 <Route path="/user" exact element={<User />}></Route>
                 <Route path="/plans/new" exact element={<Plan />}></Route>
+                <Route path="/payment" exact element={<Payment />}></Route>
                 <Route path="*" element={<PageNotFound/>}/>
             </Routes >
         </BrowserRouter>
