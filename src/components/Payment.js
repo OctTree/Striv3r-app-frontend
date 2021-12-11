@@ -4,6 +4,10 @@ import axios from 'axios'
 import Image from '../images/logo.jpg'
 import Vector from "../images/name.svg"
 import ReferralIcon from "../images/VectorRefferal.png"
+import PaymentIcon from "../images/payment_icon.svg"
+import PlanButton from "../images/plan_button.svg";
+import PaymentTwoIcon from "../images/payment_two_icon.svg";
+import CSVIcon from "../images/csv_icon.svg";
 
 const signup_state = {
     name: '',
@@ -93,11 +97,15 @@ export default function Payment() {
             <div className="p-4">
 
                 <div className="mt-3 text-center">
-                    <img src={Image} alt="some text" className="w-30 h-30" />
+                    <img src={PaymentIcon} alt="some text" className="w-30 h-30" />
                 </div>
 
                 <div className="mt-3 text-center">
-                    <label htmlFor="basic-url" className="form-label text-white">Payment</label>
+                    <img src={PaymentTwoIcon} alt="some text" />
+                </div>
+
+                <div className="col-12 mt-1 text-center">
+                    <img src={PlanButton} alt="some text" />
                 </div>
 
                 <form onSubmit={handleSignupSubmit} className="mt-2">
@@ -141,8 +149,7 @@ export default function Payment() {
 
 
                         <div class="col-4 ms-1">
-
-                            <input type="email" class="form-control" placeholder="CSV" aria-label="email"
+                            <input type="text" class="form-control" placeholder="CSV" aria-label="email"
                                 onChange={event => setSignUpObject({
                                     ...signUpObject, email: event.target.value,
                                     signup_email_error: '', error: ''
