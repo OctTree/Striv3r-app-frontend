@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
-import Image from '../images/logo.jpg'
 import Vector from "../images/name.svg"
 import ReferralIcon from "../images/VectorRefferal.png"
 import PaymentIcon from "../images/payment_icon.svg"
 import PlanButton from "../images/plan_button.svg";
 import PaymentTwoIcon from "../images/payment_two_icon.svg";
-import CSVIcon from "../images/csv_icon.svg";
 
 const signup_state = {
     name: '',

@@ -11,6 +11,30 @@
     text-align: center;
 }
 
+.Med {
+    background-image: url("../../src/images/lift_up_2.png");
+    background-size: 100%;
+    /* Full height */
+    height: 100vh;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    text-align: center;
+    padding-top:35vh;
+}
+
+.med-heading {
+    font-family: Reenie Beanie;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 40px;
+    letter-spacing: 0em;
+    color: #FFFFFF;
+}
+
 .StrivText {
     left: calc(50% - 347px / 2 + 1px);
     top: calc(50% - 156px / 2 - 216px);
