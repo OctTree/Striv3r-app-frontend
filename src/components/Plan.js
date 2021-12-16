@@ -131,6 +131,36 @@ export default function Plan() {
                     </div>
 
                     <div className="mt-3 text-white plan-how-long">
+                        <span>Select one other goal from the list below :</span>
+                    </div>
+
+                    <div className="col-12 mt-4 d-flex">
+                        <div className="col-3 ms-2">
+                            <input type="checkbox" value="monday"
+                                onChange={handleChange}
+                                className="plan-input-box" /><span className="text-white ms-1">Run</span>
+                        </div>
+                        <div className="col-3">
+                            <input type="checkbox" value="tuesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Walk</span>
+                        </div>
+                        <div className="col-3">
+                            <input type="checkbox" value="wednesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Work</span>
+                        </div>
+                        <div className="col-3">
+                            <input type="checkbox" value="thursday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Journal</span>
+                        </div>
+                    </div>
+
+                    <div className="col-12 mt-4 d-flex">
+                        <div className="col-12 ms-2">
+                            <input type="checkbox" value="newskill" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">
+                                Practice new skill (instrument, art, sing, etc)
+                            </span>
+                        </div>
+                        
+                    </div>
+
+                    <div className="mt-3 text-white plan-how-long">
                         <span>What Days & Time work best for you?<br /> (Check all that apply)</span>
                     </div>
 

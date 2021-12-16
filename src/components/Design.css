@@ -11,6 +11,62 @@
     text-align: center;
 }
 
+.MedRun {
+    background-image: url("../../src/images/run.png");
+    background-size: 100%;
+    /* Full height */
+    height: 100vh;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    text-align: center;
+    padding-top:35vh;
+}
+
+.MedPrac {
+    background-image: url("../../src/images/practice.png");
+    background-size: 100%;
+    /* Full height */
+    height: 100vh;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    text-align: center;
+    padding-top: 35vh;
+}
+
+.MedJour {
+    background-image: url("../../src/images/jour.png");
+    background-size: 100%;
+    /* Full height */
+    height: 100vh;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    text-align: center;
+    padding-top: 35vh;
+}
+
+.MedWork {
+    background-image: url("../../src/images/workout.png");
+    background-size: 100%;
+    /* Full height */
+    height: 100vh;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    text-align: center;
+    padding-top: 35vh;
+}
+
 .Med {
     background-image: url("../../src/images/lift_up_2.png");
     background-size: 100%;
@@ -22,7 +78,7 @@
     background-size: cover;
     display: block;
     text-align: center;
-    padding-top:35vh;
+    padding-top: 35vh;
 }
 
 .med-heading {

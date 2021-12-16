@@ -7,6 +7,7 @@ import StopIcon from "../images/Stop_Vector.png"
 export default function Timer() {
 
     const [timer, setTimer] = useState(3595)
+    const [classname, setClassname] = useState("MedRun")
     const [isActive, setIsActive] = useState(false)
     const [isPaused, setIsPaused] = useState(false)
     const increment = useRef(null)
@@ -48,7 +49,7 @@ export default function Timer() {
     }
 
     return (
-        <div className="Med">
+        <div className={classname}>
             <div className="col-lg-4 col-md-4 col-12 p-4">
 
                 <div>
