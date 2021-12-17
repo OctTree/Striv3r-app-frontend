@@ -32,8 +32,6 @@ export default function Timer() {
         }, 1000)
     }
 
-    
-
     const formatTime = () => {
         const getSeconds = `0${(timer % 60)}`.slice(-2)
         const minutes = `${Math.floor(timer / 60)}`
