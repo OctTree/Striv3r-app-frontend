@@ -76,7 +76,7 @@ export default function Timer() {
         const getMinutes = `0${minutes % 60}`.slice(-2)
         const getHours = `0${Math.floor(timer / 3600)}`.slice(-2)
 
-        return `${getHours} : ${getMinutes} : ${getSeconds}`
+        return `${getMinutes} : ${getSeconds}`
     }
 
     return (
