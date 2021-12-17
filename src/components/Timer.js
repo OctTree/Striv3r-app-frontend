@@ -16,7 +16,7 @@ export default function Timer() {
         setIsActive(true)
         setIsPaused(true)
         increment.current = setInterval(() => {
-            setTimer((timer) => timer + 1)
+            setTimer((timer) => timer - 1)
         }, 1000)
     }
 
@@ -28,7 +28,7 @@ export default function Timer() {
     const handleResume = () => {
         setIsPaused(true)
         increment.current = setInterval(() => {
-            setTimer((timer) => timer + 1)
+            setTimer((timer) => timer - 1)
         }, 1000)
     }
 

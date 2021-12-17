@@ -160,6 +160,24 @@ export default function Plan() {
                         
                     </div>
 
+                    <div className="col-12 mt-3 text-white plan-how-long">
+                        <span>With what frequency do you want to perform this?</span>
+                    </div>
+
+                    <div className="col-12 mt-4 d-flex">
+                        <div className="col-6 ms-2">
+                            <input type="number" className="plan-input-box"
+
+                            /><span className="text-white ms-2">Days/Wk</span>
+                        </div>
+                        <div className="col-6">
+                            <input type="number" className="col-6 plan-input-box"
+
+                               
+                            /><span className="text-white ms-2">Minutes</span>
+                        </div>
+                    </div>
+
                     <div className="mt-3 text-white plan-how-long">
                         <span>What Days & Time work best for you?<br /> (Check all that apply)</span>
                     </div>
