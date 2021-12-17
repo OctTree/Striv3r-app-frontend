@@ -1,16 +1,54 @@
 import './Design.css'
 
-import React, { useState, useRef } from "react";
+import React, {useState, useRef, useEffect} from "react";
 import StartIcon from "../images/Start_Vector.png"
 import StopIcon from "../images/Stop_Vector.png"
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
+
+const planParameters = {
+    time_of_day: "",
+    day_on_week: "",
+    days_per_week: "",
+    minutes: "",
+    goals: ""
+}
 
 export default function Timer() {
 
-    const [timer, setTimer] = useState(1200)
+
+
+    const increment = useRef(null)
+    const history = useNavigate();
+    const [plan, setPlan] = useState(planParameters)
+
+    const [timer, setTimer] = useState(0)
     const [classname, setClassname] = useState("MedRun")
     const [isActive, setIsActive] = useState(false)
     const [isPaused, setIsPaused] = useState(false)
-    const increment = useRef(null)
+
+
+    useEffect(() => {
+
+        if (localStorage.getItem("token") !== null) {
+            axios.get('/users/' + localStorage.getItem("user_id"), {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: "*/*",
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            }).then(res => {
+               let plan_data = res.data.data.plans[res.data.data.plans.length - 1]
+                setPlan(plan_data)
+
+                const plan_time = (plan_data.minutes * 60)
+                setTimer(plan_time)
+            })
+        }
+        else {
+            history("/login")
+        }
+    }, [localStorage.getItem("user_id")]);
 
     const handleStart = () => {
         setIsActive(true)
