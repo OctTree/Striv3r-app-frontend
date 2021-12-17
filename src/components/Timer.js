@@ -22,7 +22,7 @@ export default function Timer() {
     const history = useNavigate();
     const [plan, setPlan] = useState(planParameters)
 
-    const [timer, setTimer] = useState(0)
+    const [timer, setTimer] = useState(900)
     const [classname, setClassname] = useState("MedRun")
     const [isActive, setIsActive] = useState(false)
     const [isPaused, setIsPaused] = useState(false)
