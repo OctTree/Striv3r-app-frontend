@@ -6,7 +6,7 @@ import StopIcon from "../images/Stop_Vector.png"
 
 export default function Timer() {
 
-    const [timer, setTimer] = useState(3595)
+    const [timer, setTimer] = useState(1200)
     const [classname, setClassname] = useState("MedRun")
     const [isActive, setIsActive] = useState(false)
     const [isPaused, setIsPaused] = useState(false)
@@ -32,12 +32,7 @@ export default function Timer() {
         }, 1000)
     }
 
-    const handleReset = () => {
-        clearInterval(increment.current)
-        setIsActive(false)
-        setIsPaused(false)
-        setTimer(0)
-    }
+    
 
     const formatTime = () => {
         const getSeconds = `0${(timer % 60)}`.slice(-2)
@@ -63,7 +58,7 @@ export default function Timer() {
                                         <button onClick={handleResume}>Resume</button>
                                 )
                         }
-                        <button onClick={handleReset} disabled={!isActive}>Reset</button>
+                        
                     </div>
                 </div>
 
