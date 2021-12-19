@@ -10,6 +10,7 @@ const plan_state = {
     day_on_week: [],
     time_on_day: '',
     goals: '',
+    activity_type: '',
     error: ''
 }
 
@@ -40,6 +41,7 @@ export default function Plan() {
                 day_on_week: selectedDay,
                 time_on_day: planObject.time_on_day,
                 goals: planObject.goals,
+                activity_type: planObject.activity_type
             }
         }
         if (planObject.days_per_week > 7) {
@@ -136,27 +138,54 @@ export default function Plan() {
 
                     <div className="col-12 mt-4 d-flex">
                         <div className="col-3 ms-2">
-                            <input type="radio" name="act" value="monday"
+                            <input type="radio" name="act" value="run"
+
+                                onChange={event => setplanObject({
+                                    ...planObject, activity_type: event.target.value,
+                                    error: ''
+                                })}
+
                                 className="plan-input-box" /><span className="text-white ms-1">Run</span>
                         </div>
                         <div className="col-3">
-                            <input type="radio" name="act" value="tuesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Walk</span>
+                            <input type="radio" name="act" value="walk"
+
+                                onChange={event => setplanObject({
+                                    ...planObject, activity_type: event.target.value,
+                                    error: ''
+                                })}
+                                className="plan-input-box" /><span className="text-white ms-1">Walk</span>
                         </div>
                         <div className="col-3">
-                            <input type="radio" name="act" value="wednesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Work</span>
+                            <input type="radio" name="act" value="workout"
+                                onChange={event => setplanObject({
+                                    ...planObject, activity_type: event.target.value,
+                                    error: ''
+                                })}
+                                className="plan-input-box" /><span className="text-white ms-1">Work</span>
                         </div>
                         <div className="col-3">
-                            <input type="radio" name="act" value="thursday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Journal</span>
+                            <input type="radio" name="act" value="journal"
+                                onChange={event => setplanObject({
+                                    ...planObject, activity_type: event.target.value,
+                                    error: ''
+                                })}
+                                className="plan-input-box" /><span className="text-white ms-1">Journal</span>
                         </div>
                     </div>
 
                     <div className="col-12 mt-4 d-flex">
                         <div className="col-12 ms-2">
-                            <input type="checkbox" value="newskill" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">
+                            <input type="radio" name="act" value="musical"
+                                onChange={event => setplanObject({
+                                    ...planObject, activity_type: event.target.value,
+                                    error: ''
+                                })}
+                                className="plan-input-box" /><span className="text-white ms-2">
                                 Practice new skill (instrument, art, sing, etc)
                             </span>
                         </div>
-                        
+
                     </div>
 
                     <div className="col-12 mt-3 text-white plan-how-long">
@@ -172,7 +201,7 @@ export default function Plan() {
                         <div className="col-6">
                             <input type="number" className="col-6 plan-input-box"
 
-                               
+
                             /><span className="text-white ms-2">Minutes</span>
                         </div>
                     </div>

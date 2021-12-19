@@ -40,14 +40,19 @@ export default function User() {
                 }
             }).then(res => {
 
+                if (res.data.data.plans.length === 0) {
+                    alert("You don't have any Plan. please update your plan.")
+                    history('/plans/new');
+                }
+
                 axios.get('/activity_plans', {
                     headers: {
                         'Content-Type': 'application/json',
                         Accept: "*/*",
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
-                }).then(res => {
-                    console.log(res)
+                }).then(response => {
+                    console.log(response)
                 })
 
                 console.log(res.data.data.plans[res.data.data.plans.length - 1])
