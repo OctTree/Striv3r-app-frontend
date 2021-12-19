@@ -136,18 +136,17 @@ export default function Plan() {
 
                     <div className="col-12 mt-4 d-flex">
                         <div className="col-3 ms-2">
-                            <input type="checkbox" value="monday"
-                                onChange={handleChange}
+                            <input type="radio" name="act" value="monday"
                                 className="plan-input-box" /><span className="text-white ms-1">Run</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" value="tuesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Walk</span>
+                            <input type="radio" name="act" value="tuesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Walk</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" value="wednesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Work</span>
+                            <input type="radio" name="act" value="wednesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Work</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" value="thursday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Journal</span>
+                            <input type="radio" name="act" value="thursday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-1">Journal</span>
                         </div>
                     </div>
 

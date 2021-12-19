@@ -39,10 +39,23 @@ export default function User() {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             }).then(res => {
+
+                axios.get('/activity_plans', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: "*/*",
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                }).then(res => {
+                    console.log(res)
+                })
+
                 console.log(res.data.data.plans[res.data.data.plans.length - 1])
                 setUser(res.data.data.user)
                 setPlan(res.data.data.plans[res.data.data.plans.length - 1])
             })
+
+            
         }
         else {
             history("/login")
