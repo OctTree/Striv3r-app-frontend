@@ -1,8 +1,8 @@
 import './Design.css'
-import { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap'
+import {useState, useEffect} from 'react';
+import {Container} from 'react-bootstrap'
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import defaultAvatar from "../images/avatar.png"
 
 const userParameters = {
@@ -28,6 +28,7 @@ export default function User() {
 
     const [user, setUser] = useState(userParameters);
     const [plan, setPlan] = useState(planParameters);
+    const [activityPlans, setActivityPlans] = useState([]);
 
     useEffect(() => {
 
@@ -52,17 +53,13 @@ export default function User() {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
                 }).then(response => {
-                    console.log(response)
+                    setActivityPlans(response.data)
                 })
 
-                console.log(res.data.data.plans[res.data.data.plans.length - 1])
                 setUser(res.data.data.user)
                 setPlan(res.data.data.plans[res.data.data.plans.length - 1])
             })
-
-            
-        }
-        else {
+        } else {
             history("/login")
         }
     }, [localStorage.getItem("user_id")]);
@@ -83,6 +80,14 @@ export default function User() {
         })
     }
 
+    const render_checkbox = (size) => {
+        const check_array = []
+        for (var i = 0; i < size; i++) {
+            check_array.push(<input type="checkbox" checked="checked" className="plan-input-box ms-1"/>);
+        }
+        return check_array;
+    }
+
     return (
         <div>
             <nav className="navbar navbar-light bg-dark justify-content-between">
@@ -98,7 +103,7 @@ export default function User() {
 
                     <div className="col-12 col-sm-4 bg-white p-2 d-flex">
                         <div className="col-4">
-                            <img src={defaultAvatar} alt="some text" className="default-profile-pic" />
+                            <img src={defaultAvatar} alt="some text" className="default-profile-pic"/>
                         </div>
 
                         <div className="col-8">
@@ -132,7 +137,7 @@ export default function User() {
                     </div>
 
                     <div className="col-12 col-sm-4 p-2 user-cus-div-border">
-                        <div className="col-12 d-inline-flex" >
+                        <div className="col-12 d-inline-flex">
                             <div className="col-6">
                                 <strong className="text-white h3">Current Goals:</strong>
                             </div>
@@ -144,12 +149,13 @@ export default function User() {
                             </div>
                         </div>
                         <div className="col-12">
-                            <strong className="text-white">My goal is to meditate {plan.days_per_week} / week for {plan.minutes} minutes / session</strong>
+                            <strong className="text-white">My goal is to meditate {plan.days_per_week} / week
+                                for {plan.minutes} minutes / session</strong>
                         </div>
                     </div>
 
                     <div className="col-12 col-sm-4 p-2 user-cus-div-border">
-                        <div className="col-12 d-inline-flex" >
+                        <div className="col-12 d-inline-flex">
                             <div className="col-6">
                                 <strong className="h3 t-colour">Striv3r Plan:</strong>
                             </div>
@@ -161,16 +167,60 @@ export default function User() {
                             </div>
                         </div>
                         <div className="col-12">
-                            <strong className="t-colour">Week 1:</strong><br />
-                            <strong className="text-white">Medidate 1x this week for 5 min.</strong><input type="checkbox" className="plan-input-box ms-1" />
+                            <strong className="t-colour">Week 1:</strong>
+                            {activityPlans.map((activity_plan, index) => (
+                                activity_plan.week === "week 1" ?
+                                    <div>
+                                        <strong className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x this week for {activity_plan.time} min.</strong>
+                                        {
+                                            render_checkbox(activity_plan.frequency)
+                                        }
+                                    </div>
+                                    :
+                                    "No Activity"
+                            ))}
                         </div>
                         <div className="col-12 ms-2">
-                            <strong className="t-colour">Week 2:</strong><br />
-                            <strong className="text-white">Medidate 1x this week for 5 min.</strong><input type="checkbox" className="plan-input-box ms-1" />
+                            <strong className="t-colour">Week 2:</strong>
+                            {activityPlans.map((activity_plan, index) => (
+                                activity_plan.week === "week 2" ?
+                                    <div>
+                                        <strong className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x this week for {activity_plan.time} min.</strong>
+                                        {
+                                            render_checkbox(activity_plan.frequency)
+                                        }
+                                    </div>
+                                    :
+                                    "No Activity"
+                            ))}
+                        </div>
+                        <div className="col-12 ms-3">
+                            <strong className="t-colour">Week 3:</strong>
+                            {activityPlans.map((activity_plan, index) => (
+                                activity_plan.week === "week 3" ?
+                                    <div>
+                                        <strong className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x this week for {activity_plan.time} min.</strong>
+                                        {
+                                            render_checkbox(activity_plan.frequency)
+                                        }
+                                    </div>
+                                    :
+                                    "No Activity"
+                            ))}
                         </div>
                         <div className="col-12 ms-4">
-                            <strong className="t-colour">Week 3:</strong><br />
-                            <strong className="text-white">Medidate 1x this week for 5 min.</strong><input type="checkbox" className="plan-input-box ms-1" />
+                            <strong className="t-colour">Week 4:</strong>
+                            {activityPlans.map((activity_plan, index) => (
+                                activity_plan.week === "week 4" ?
+                                    <div>
+                                        <strong className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x this week for {activity_plan.time} min.</strong>
+                                        {
+                                            render_checkbox(activity_plan.frequency)
+                                        }
+                                    </div>
+                                    :
+                                    "No Activity"
+                            ))}
                         </div>
                     </div>
 
