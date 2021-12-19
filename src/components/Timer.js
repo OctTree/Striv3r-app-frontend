@@ -61,6 +61,27 @@ export default function Timer() {
     const handlePause = () => {
         clearInterval(increment.current)
         setIsPaused(false)
+
+        let newDate = new Date()
+        let date = newDate.getDay();
+        let month = newDate.getMonth();
+        let year = newDate.getFullYear();
+        let total_time = plan.minutes * 60
+        let time_spent = total_time - timer
+        const activity_form = {
+            activity: {
+                activity_name: plan.activity_type,
+                performed_at: `${year}-${month}${date}`,
+                time_spent: time_spent,
+                remaining_time: timer
+            }
+        }
+        axios.post('/activities', activity_form, {headers: {'Content-Type': 'application/json', Accept: "*/*"
+            , Authorization: `Bearer ${localStorage.getItem('token')}`
+            }})
+            .then(response => {
+                console.log(response)
+            })
     }
 
     const handleResume = () => {
