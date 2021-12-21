@@ -35,7 +35,6 @@ export default function Register() {
     const handleSignupSubmit = (event) => {
         event.preventDefault();
 
-
         const signup_parameter = {
             user: {
                 name: signUpObject.name,

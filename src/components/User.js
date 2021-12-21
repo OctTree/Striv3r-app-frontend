@@ -53,6 +53,7 @@ export default function User() {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
                 }).then(response => {
+                    console.log(response)
                     setActivityPlans(response.data)
                 })
 
@@ -76,6 +77,7 @@ export default function User() {
         }).then(res => {
             localStorage.removeItem("token")
             localStorage.removeItem("name")
+            localStorage.removeItem("user_id")
             history('/login');
         })
     }
@@ -83,7 +85,7 @@ export default function User() {
     const render_checkbox = (size) => {
         const check_array = []
         for (var i = 0; i < size; i++) {
-            check_array.push(<input type="checkbox" checked="checked" className="plan-input-box ms-1"/>);
+            check_array.push(<input type="checkbox" className="plan-input-box ms-1"/>);
         }
         return check_array;
     }

@@ -1,6 +1,6 @@
 import Image from "../images/logo.jpg";
 import PlanButton from '../images/plan_button.svg'
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
@@ -11,6 +11,8 @@ const plan_state = {
     time_on_day: '',
     goals: '',
     activity_type: '',
+    frequency_days: "",
+    frequency_minutes: "",
     error: ''
 }
 
@@ -20,6 +22,13 @@ export default function Plan() {
     const [IsLoading, setIsLoading] = useState(false);
     const [selectedDay, setSelectedDay] = useState([]);
     const history = useNavigate();
+
+    useEffect(() => {
+        console.log(localStorage.getItem("token"))
+        if (localStorage.getItem("token") === null) {
+            history.push("/")
+        }
+    }, [localStorage.getItem('token')])
 
     const handleChange = event => {
         const { checked, value } = event.currentTarget;
@@ -41,7 +50,9 @@ export default function Plan() {
                 day_on_week: selectedDay,
                 time_on_day: planObject.time_on_day,
                 goals: planObject.goals,
-                activity_type: planObject.activity_type
+                activity_type: planObject.activity_type,
+                frequency_days: planObject.frequency_days,
+                frequency_minutes: planObject.frequency_minutes
             }
         }
         if (planObject.days_per_week > 7) {
@@ -195,13 +206,18 @@ export default function Plan() {
                     <div className="col-12 mt-4 d-flex">
                         <div className="col-6 ms-2">
                             <input type="number" className="plan-input-box"
-
+                                   onChange={event => setplanObject({
+                                       ...planObject, frequency_days: event.target.value,
+                                       error: ''
+                                   })}
                             /><span className="text-white ms-2">Days/Wk</span>
                         </div>
                         <div className="col-6">
                             <input type="number" className="col-6 plan-input-box"
-
-
+                                   onChange={event => setplanObject({
+                                       ...planObject, frequency_minutes: event.target.value,
+                                       error: ''
+                                   })}
                             /><span className="text-white ms-2">Minutes</span>
                         </div>
                     </div>
