@@ -40,6 +40,21 @@ export default function Timer() {
             }).then(res => {
                let plan_data = res.data.data.plans[res.data.data.plans.length - 1]
                 setPlan(plan_data)
+                if(plan_data.activity_type == "workout"){
+                    setClassname("MedWork")
+                }
+                else if(plan_data.activity_type == "run"){
+                    setClassname("MedRun")
+                }
+                else if(plan_data.activity_type == "journal"){
+                    setClassname("MedJour")
+                }
+                else if(plan_data.activity_type == "musical"){
+                    setClassname("MedPrac")
+                }
+                else{
+                    setClassname("Med")
+                }
 
                 const plan_time = (plan_data.minutes * 60)
                 setTimer(plan_time)
