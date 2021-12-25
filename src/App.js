@@ -19,7 +19,7 @@ function App() {
                 <Route path="/user" exact element={<User />}></Route>
                 <Route path="/plans/new" exact element={<Plan />}></Route>
                 <Route path="/payment" exact element={<Payment />}></Route>
-                <Route path="/timer" exact element={<Timer />}></Route>
+                <Route path="/timer/:id" exact element={<Timer />}></Route>
                 <Route path="*" element={<PageNotFound/>}/>
             </Routes >
         </BrowserRouter>

@@ -4,17 +4,16 @@ import React, {useState, useRef, useEffect} from "react";
 import StartIcon from "../images/Start_Vector.png"
 import StopIcon from "../images/Stop_Vector.png"
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const planParameters = {
-    time_of_day: "",
-    day_on_week: "",
-    days_per_week: "",
-    minutes: "",
-    goals: ""
+    activity_name: "",
+    remaining_time: "",
+    time_spent: "",
+    time: ""
 }
 
-export default function Timer() {
+export default function Timer(props) {
 
 
 
@@ -26,44 +25,45 @@ export default function Timer() {
     const [classname, setClassname] = useState("MedRun")
     const [isActive, setIsActive] = useState(false)
     const [isPaused, setIsPaused] = useState(false)
+    const { id } = useParams();
 
 
     useEffect(() => {
 
         if (localStorage.getItem("token") !== null) {
-            axios.get('/users/' + localStorage.getItem("user_id"), {
+            axios.get('/activity_plans/' + id, {
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: "*/*",
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             }).then(res => {
-               let plan_data = res.data.data.plans[res.data.data.plans.length - 1]
+               let plan_data = res.data.activity_plan
                 setPlan(plan_data)
-                if(plan_data.activity_type == "workout"){
+                if(plan_data.activity_name === "workout"){
                     setClassname("MedWork")
                 }
-                else if(plan_data.activity_type == "run"){
+                else if(plan_data.activity_name === "run"){
                     setClassname("MedRun")
                 }
-                else if(plan_data.activity_type == "journal"){
+                else if(plan_data.activity_name === "journal"){
                     setClassname("MedJour")
                 }
-                else if(plan_data.activity_type == "musical"){
+                else if(plan_data.activity_name === "musical"){
                     setClassname("MedPrac")
                 }
                 else{
                     setClassname("Med")
                 }
 
-                const plan_time = (plan_data.minutes * 60)
+                const plan_time = (plan_data.remaining_time * 60)
                 setTimer(plan_time)
             })
         }
         else {
             history("/login")
         }
-    }, [localStorage.getItem("user_id")]);
+    }, []);
 
     const handleStart = () => {
         setIsActive(true)
@@ -77,21 +77,17 @@ export default function Timer() {
         clearInterval(increment.current)
         setIsPaused(false)
 
-        let newDate = new Date()
-        let date = newDate.getDay();
-        let month = newDate.getMonth();
-        let year = newDate.getFullYear();
-        let total_time = plan.minutes * 60
+        let total_time = plan.remaining_time * 60
         let time_spent = total_time - timer
+        let time_remaining = (total_time - time_spent)
+
         const activity_form = {
-            activity: {
-                activity_name: plan.activity_type,
-                performed_at: `${year}-${month}${date}`,
+            activity_plan: {
                 time_spent: time_spent,
-                remaining_time: timer
+                remaining_time: time_remaining
             }
         }
-        axios.post('/activities', activity_form, {headers: {'Content-Type': 'application/json', Accept: "*/*"
+        axios.put('/activity_plans/' + id, activity_form, {headers: {'Content-Type': 'application/json', Accept: "*/*"
             , Authorization: `Bearer ${localStorage.getItem('token')}`
             }})
             .then(response => {
