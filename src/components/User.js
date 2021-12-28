@@ -86,10 +86,10 @@ export default function User() {
         const check_array = []
         for (var i = 0; i < size; i++) {
             if (activity_plan.remaining_time <= 0){
-                check_array.push(<input type="checkbox" checked="checked" className="plan-input-box ms-1"/>);
+                check_array.push(<input type="checkbox" disabled="disabled" checked="checked" className="plan-input-box ms-1"/>);
             }
             else{
-                check_array.push(<input type="checkbox" className="plan-input-box ms-1"/>);
+                check_array.push(<input type="checkbox" disabled="disabled" className="plan-input-box ms-1"/>);
             }
         }
         return check_array;
