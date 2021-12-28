@@ -55,7 +55,7 @@ export default function Timer(props) {
                 else{
                     setClassname("Med")
                 }
-
+                console.log(plan_data)
                 setTimer(plan_data.remaining_time)
             })
         }
@@ -76,7 +76,7 @@ export default function Timer(props) {
         clearInterval(increment.current)
         setIsPaused(false)
 
-        let total_time = plan.remaining_time * 60
+        let total_time = plan.remaining_time
         let time_spent = total_time - timer
         let time_remaining = (total_time - time_spent)
 
@@ -106,7 +106,12 @@ export default function Timer(props) {
         const minutes = `${Math.floor(timer / 60)}`
         const getMinutes = `0${minutes % 60}`.slice(-2)
 
-        return `${getMinutes} : ${getSeconds}`
+        if(getMinutes > 0 && getSeconds > 0){
+            return `${getMinutes} : ${getSeconds}`
+        }
+        else{
+            return `00 : 00`
+        }
     }
 
     return (
