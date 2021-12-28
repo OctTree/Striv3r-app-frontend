@@ -56,8 +56,7 @@ export default function Timer(props) {
                     setClassname("Med")
                 }
 
-                const plan_time = (plan_data.remaining_time * 60)
-                setTimer(plan_time)
+                setTimer(plan_data.remaining_time)
             })
         }
         else {
