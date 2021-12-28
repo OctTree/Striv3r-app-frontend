@@ -85,7 +85,7 @@ export default function User() {
     const render_checkbox = (size, activity_plan) => {
         const check_array = []
         for (var i = 0; i < size; i++) {
-            if (activity_plan.remaining_time === 0){
+            if (activity_plan.remaining_time <= 0){
                 check_array.push(<input type="checkbox" checked="checked" className="plan-input-box ms-1"/>);
             }
             else{
