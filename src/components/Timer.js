@@ -64,11 +64,55 @@ export default function Timer(props) {
         }
     }, []);
 
+    useEffect(() => {
+
+        if(timer === 0){
+            // eslint-disable-next-line no-restricted-globals
+            if(confirm("Do you want to confirm thus activity?") ){
+                setIsPaused(false)
+                const activity_form = {
+                    activity_plan: {
+                        time_spent: 0,
+                        remaining_time: 0
+                    }
+                }
+
+                axios.put('/activity_plans/' + id, activity_form, {headers: {'Content-Type': 'application/json', Accept: "*/*"
+                        , Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }})
+                    .then(response => {
+                        console.log(response)
+                        history("/user")
+                    })
+            }
+            else {
+                let time_remaining = (plan.time * 60)
+
+                const activity_form = {
+                    activity_plan: {
+                        time_spent: 0,
+                        remaining_time: time_remaining
+                    }
+                }
+
+                axios.put('/activity_plans/' + id, activity_form, {headers: {'Content-Type': 'application/json', Accept: "*/*"
+                        , Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }})
+                    .then(response => {
+                        console.log(response)
+                    })
+            }
+        }
+
+    })
+
     const handleStart = () => {
         setIsActive(true)
         setIsPaused(true)
         increment.current = setInterval(() => {
+
             setTimer((timer) => timer - 1)
+
         }, 1000)
     }
 
@@ -106,12 +150,11 @@ export default function Timer(props) {
         const minutes = `${Math.floor(timer / 60)}`
         const getMinutes = `0${minutes % 60}`.slice(-2)
 
-        if(getMinutes > 0 && getSeconds > 0){
-            return `${getMinutes} : ${getSeconds}`
-        }
-        else{
-            return `00 : 00`
-        }
+        return `${getMinutes} : ${getSeconds}`
+    }
+
+    const Capitalize = (str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
     return (
@@ -120,29 +163,19 @@ export default function Timer(props) {
 
                 <div>
                     <p>{formatTime()}</p>
-                    <div className='buttons'>
+                    <div className="mt-3 text-center">
+                        <strong className="med-heading">{Capitalize(plan.activity_name)} Timer</strong>
+                    </div>
+                    <div className='buttons mt-3'>
                         {
                             !isActive && !isPaused ?
-                                <button onClick={handleStart}>Start</button>
+                                <button className="timer-activity-plan-button" onClick={handleStart}><img src={StartIcon} alt="some text" /></button>
                                 : (
-                                    isPaused ? <button onClick={handlePause}>Pause</button> :
-                                        <button onClick={handleResume}>Resume</button>
+                                    isPaused ? <button className="timer-activity-plan-button" onClick={handlePause}><img src={StopIcon} alt="some text" /></button> :
+                                        <button className="timer-activity-plan-button" onClick={handleResume}><img src={StartIcon} alt="some text" /></button>
                                 )
                         }
                         
-                    </div>
-                </div>
-
-                <div className="mt-3 text-center">
-                    <strong className="med-heading">Meditation Timer</strong>
-                </div>
-                <div className="d-inline-flex">
-                    <div className="mt-3 text-center">
-                        <img src={StartIcon} alt="some text" />
-                    </div>
-
-                    <div className="ms-3 mt-3 text-center">
-                        <img src={StopIcon} alt="some text" />
                     </div>
                 </div>
 

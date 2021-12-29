@@ -284,3 +284,8 @@
     color: #0B0A0A;
     padding: 0.5rem 3.2rem;
 }
+
+.timer-activity-plan-button{
+    background: none;
+    border: none;
+}
