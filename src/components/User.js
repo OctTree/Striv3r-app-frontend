@@ -84,14 +84,25 @@ export default function User() {
 
     const render_checkbox = (size, activity_plan) => {
         const check_array = []
-        for (var i = 0; i < size; i++) {
-            if (activity_plan.remaining_time <= 0){
-                check_array.push(<input type="checkbox" disabled="disabled" checked="checked" className="plan-input-box ms-1"/>);
+        if (activity_plan.frequency === activity_plan.frequency_finished) {
+            for (var i = 0; i < size; i++) {
+                check_array.push(<input type="checkbox" disabled="disabled" checked="checked"
+                                        className="plan-input-box ms-1"/>);
             }
-            else{
+        } else {
+            var i = 0
+
+            for (i = 0; i < activity_plan.frequency_finished; i++) {
+                check_array.push(<input type="checkbox" disabled="disabled" checked="checked"
+                                        className="plan-input-box ms-1"/>);
+            }
+
+            for (i = 0; i < (size - activity_plan.frequency_finished); i++) {
                 check_array.push(<input type="checkbox" disabled="disabled" className="plan-input-box ms-1"/>);
             }
+
         }
+
         return check_array;
     }
 
@@ -178,7 +189,9 @@ export default function User() {
                             {activityPlans.map((activity_plan, index) => (
                                 activity_plan.week === "week 1" ?
                                     <div>
-                                        <a href={"/timer/" + activity_plan.id} className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x this week for {activity_plan.time} min.</a>
+                                        <a href={"/timer/" + activity_plan.id}
+                                           className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x
+                                            this week for {activity_plan.time} min.</a>
                                         {
                                             render_checkbox(activity_plan.frequency, activity_plan)
                                         }
@@ -192,7 +205,9 @@ export default function User() {
                             {activityPlans.map((activity_plan, index) => (
                                 activity_plan.week === "week 2" ?
                                     <div>
-                                        <a href={"/timer/" + activity_plan.id} className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x this week for {activity_plan.time} min.</a>
+                                        <a href={"/timer/" + activity_plan.id}
+                                           className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x
+                                            this week for {activity_plan.time} min.</a>
                                         {
                                             render_checkbox(activity_plan.frequency, activity_plan)
                                         }
@@ -204,9 +219,11 @@ export default function User() {
                         <div className="col-12 ms-3">
                             <strong className="t-colour">Week 3:</strong>
                             {activityPlans.map((activity_plan, index) => (
-                                activity_plan.week === "week 3" || activity_plan.week === "week 4" ||  activity_plan.week === "week 5" ?
+                                activity_plan.week === "week 3" || activity_plan.week === "week 4" || activity_plan.week === "week 5" ?
                                     <div>
-                                        <a href={"/timer/" + activity_plan.id} className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x this week for {activity_plan.time} min.</a>
+                                        <a href={"/timer/" + activity_plan.id}
+                                           className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x
+                                            this week for {activity_plan.time} min.</a>
                                         {
                                             render_checkbox(activity_plan.frequency, activity_plan)
                                         }

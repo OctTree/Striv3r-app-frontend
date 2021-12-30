@@ -10,7 +10,9 @@ const planParameters = {
     activity_name: "",
     remaining_time: "",
     time_spent: "",
-    time: ""
+    time: "",
+    frequency: "",
+    frequency_finished: ""
 }
 
 export default function Timer(props) {
@@ -55,8 +57,8 @@ export default function Timer(props) {
                 else{
                     setClassname("Med")
                 }
-                console.log(plan_data)
-                setTimer(plan_data.remaining_time)
+
+                plan_data.frequency_finished === plan_data.frequency ? setTimer(0) : setTimer(plan_data.remaining_time)
             })
         }
         else {
@@ -66,6 +68,13 @@ export default function Timer(props) {
 
     useEffect(() => {
 
+        if(plan.frequency == plan.frequency_finished){
+            alert("Activity Plan Completed.")
+           return  history("/user")
+        }
+
+     var  remaining_time = plan.frequency_finished === (plan.frequency - 1) ? 0 : (plan.time * 60)
+
         if(timer === 0){
             // eslint-disable-next-line no-restricted-globals
             if(confirm("Do you want to confirm thus activity?") ){
@@ -73,7 +82,8 @@ export default function Timer(props) {
                 const activity_form = {
                     activity_plan: {
                         time_spent: 0,
-                        remaining_time: 0
+                        remaining_time: remaining_time,
+                        frequency_finished: (plan.frequency_finished + 1)
                     }
                 }
 
