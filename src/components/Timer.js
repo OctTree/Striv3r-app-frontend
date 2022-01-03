@@ -68,10 +68,14 @@ export default function Timer(props) {
 
     useEffect(() => {
 
-        if(plan.frequency == plan.frequency_finished){
-            alert("Activity Plan Completed.")
-           return  history("/user")
+
+        if(plan.frequency){
+            if(plan.frequency == plan.frequency_finished){
+                alert("Activity Plan Completed.")
+                return  history("/user")
+            }
         }
+
 
      var  remaining_time = plan.frequency_finished === (plan.frequency - 1) ? 0 : (plan.time * 60)
 
