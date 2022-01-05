@@ -55,7 +55,7 @@ export default function Timer(props) {
                     setClassname("MedPrac")
                 }
                 else{
-                    setClassname("Med")
+                    setClassname("MedRun")
                 }
 
                 plan_data.frequency_finished === plan_data.frequency ? setTimer(0) : setTimer(plan_data.remaining_time)
