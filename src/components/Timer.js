@@ -176,7 +176,7 @@ export default function Timer(props) {
             <div className="col-lg-4 col-md-4 col-12 p-4">
 
                 <div>
-                    <p>{formatTime()}</p>
+                    <p style={{fontSize: "28px"}}>{formatTime()}</p>
                     <div className="mt-3 text-center">
                         <strong className="med-heading">{Capitalize(plan.activity_name)} Timer</strong>
                     </div>
