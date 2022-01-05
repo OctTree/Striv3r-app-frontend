@@ -54,8 +54,11 @@ export default function Timer(props) {
                 else if(plan_data.activity_name === "musical"){
                     setClassname("MedPrac")
                 }
-                else{
+                else if(plan_data.activity_name === "walk"){
                     setClassname("MedRun")
+                }
+                else{
+                    setClassname("Med")
                 }
 
                 plan_data.frequency_finished === plan_data.frequency ? setTimer(0) : setTimer(plan_data.remaining_time)
