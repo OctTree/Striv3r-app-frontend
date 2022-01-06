@@ -84,7 +84,7 @@ export default function Timer(props) {
 
         if(timer === 0){
             // eslint-disable-next-line no-restricted-globals
-            if(confirm("Do you want to confirm thus activity?") ){
+            if(confirm("Do you want to confirm this activity?") ){
                 setIsPaused(false)
                 const activity_form = {
                     activity_plan: {
