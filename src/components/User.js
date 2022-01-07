@@ -11,7 +11,9 @@ const userParameters = {
     image: "",
     zip: "",
     phone: "",
-    referral: ""
+    referral: "",
+    point_balance: "",
+    total_point_earned: ""
 }
 
 const planParameters = {
@@ -133,10 +135,44 @@ export default function User() {
                             </div>
                             <div className="mt-1 d-inline-flex">
                                 <div>
-                                    <simple className="text-dark">Reward Points</simple>
+                                    <span className="text-dark">Point Balance</span><br/> <span
+                                    className="ml-3 points-text">{user.point_balance}</span>
                                 </div>
                                 <div className="ms-1">
-                                    <simple className="text-dark">Referral Points</simple>
+                                    <span className="text-dark">Total Points Earned</span><br/> <span
+                                    className="ml-3 points-text">{user.total_point_earned}</span>
+                                </div>
+                            </div>
+                            <div className="mt-2">
+                                <button className="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#redeem-point-modal">Redeem Points
+                                </button>
+                            </div>
+
+                            <div className="modal fade" id="redeem-point-modal" tabIndex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title" id="exampleModalLabel">Redeem Points</h5>
+                                            <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div className="modal-body">
+                                            <form>
+                                                <div className="form-group">
+                                                    <input type="radio" name="redeem_point"/> Redeem for a cash value at 3 months
+                                                </div>
+                                                <div className="form-group">
+                                                    <input type="radio" name="redeem_point"/> Redeem on free month subscription at 300 points
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-sm btn-primary">Confirm
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

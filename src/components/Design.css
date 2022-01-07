@@ -289,3 +289,9 @@
     background: none;
     border: none;
 }
+
+.points-text{
+    font-size: 23px;
+    font-weight: 700;
+    color: #2AF509;
+}
