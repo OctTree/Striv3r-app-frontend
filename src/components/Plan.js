@@ -25,7 +25,6 @@ export default function Plan() {
     const history = useNavigate();
 
     useEffect(() => {
-        console.log(localStorage.getItem("token"))
         if (localStorage.getItem("token") === null) {
             history.push("/")
         }
@@ -53,7 +52,6 @@ export default function Plan() {
 
     const handlePlanSubmit = (event) => {
         event.preventDefault();
-        console.log(selectedDay)
         const signup_parameter = {
             plan: {
                 days_per_week: planObject.days_per_week,
@@ -82,7 +80,6 @@ export default function Plan() {
                     localStorage.setItem("access-token", response.data);
                 }).catch(error => {
                     setIsLoading(false)
-                    console.log(error.response)
                     if (!error.response) {
                         history('/login');
                     } else {

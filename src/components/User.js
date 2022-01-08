@@ -84,6 +84,12 @@ export default function User() {
         })
     }
 
+    const handlePointSubmit = (event) => {
+        axios.post('/redeems', { point_redeem: { redeem_point: 300 } }, { headers: { 'Content-Type': 'application/json', Accept: "*/*", Authorization: `Bearer ${localStorage.getItem('token')}` } })
+            .then(response => {
+            })
+    }
+
     const render_checkbox = (size, activity_plan) => {
         const check_array = []
         if (activity_plan.frequency === activity_plan.frequency_finished) {
@@ -169,7 +175,7 @@ export default function User() {
                                             </form>
                                         </div>
                                         <div className="modal-footer">
-                                            <button type="button" className="btn btn-sm btn-primary">Confirm
+                                            <button type="button" className="btn btn-sm btn-primary" onClick={handlePointSubmit}>Confirm
                                             </button>
                                         </div>
                                     </div>
