@@ -142,12 +142,18 @@ export default function User() {
                             </div>
                             <div className="mt-1 d-inline-flex">
                                 <div>
-                                    <span className="text-dark">Point Balance</span><br/> <span
-                                    className="ml-3 points-text">{user.point_balance}</span>
+                                    <span className="ml-3 points-text">{user.point_balance}</span><br/>
+                                    <span className="text-dark">Point Balance</span>
                                 </div>
                                 <div className="ms-1">
-                                    <span className="text-dark">Total Points Earned</span><br/> <span
-                                    className="ml-3 points-text">{user.total_point_earned}</span>
+                                    <span className="ml-3 points-text">{user.total_point_earned}</span> <br/>
+                                    <span className="text-dark">Total Points Earned</span>
+                                </div>
+                            </div>
+                            <div className="mt-1 d-inline-flex">
+                                <div>
+                                    <span className="ml-3 points-text">{user.referral_code}</span><br/>
+                                    <span className="text-dark">Referral code</span>
                                 </div>
                             </div>
                             <div className="mt-2">

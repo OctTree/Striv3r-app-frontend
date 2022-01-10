@@ -182,6 +182,10 @@
     background-color: #E5E5E5;
 }
 
+.plan-input-box:checked{
+    color: black;
+}
+
 .plan-input-box:focus{
     border-color: #E5E5E5;
 }
