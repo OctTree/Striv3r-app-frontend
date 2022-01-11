@@ -176,14 +176,28 @@
     margin-left: 11px;
 }
 
-.plan-input-box{
+.plan-input-box {
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    -o-appearance:none;
+    outline: none;
+    content: none;
+}
+
+.plan-input-box:before {
+    font-family: "FontAwesome";
+    content: "\f00c";
+    font-size: 25px;
+    color: transparent !important;
+    display: block;
     width: 30px;
     height: 30px;
     background-color: #E5E5E5;
+    margin-right: 7px;
 }
 
-.plan-input-box:checked{
-    color: black;
+.plan-input-box:checked:before {
+    color: black !important;
 }
 
 .plan-input-box:focus{
