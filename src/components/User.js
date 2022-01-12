@@ -13,7 +13,8 @@ const userParameters = {
     phone: "",
     referral: "",
     point_balance: "",
-    total_point_earned: ""
+    total_point_earned: "",
+    active: ""
 }
 
 const planParameters = {
@@ -55,7 +56,6 @@ export default function User() {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
                 }).then(response => {
-                    console.log(response)
                     setActivityPlans(response.data)
                 })
 
@@ -89,6 +89,16 @@ export default function User() {
             .then(response => {
                 window.location.reload()
             })
+    }
+
+    const handleCancel = (event) => {
+        // eslint-disable-next-line no-restricted-globals
+      if(confirm("Are you sure, you want to cancel?")){
+          axios.put('/users/' + localStorage.getItem("user_id"), { user: { active: 'false' } }, { headers: { 'Content-Type': 'application/json', Accept: "*/*", Authorization: `Bearer ${localStorage.getItem('token')}` } })
+              .then(response => {
+                  history("/login")
+              })
+      }
     }
 
     const render_checkbox = (size, activity_plan) => {
@@ -287,8 +297,8 @@ export default function User() {
 
                 </div>
                 <nav className="navbar navbar-light bg-dark justify-content-between">
-
                     <button className="btn btn-sm btn-link logout-button" onClick={handleLogout}>Logout</button>
+                    <button className="btn btn-sm btn-link logout-button" onClick={handleCancel}>Cancel</button>
                     <button className="btn btn-sm btn-link logout-button">Contact</button>
                 </nav>
             </Container>

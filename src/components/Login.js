@@ -46,15 +46,22 @@ export default function Login() {
             setIsLoading(true)
             axios.post('/login', login_parameter, {headers: {'Content-Type': 'application/json', Accept: "*/*"}})
                 .then(response => {
-                    setIsLoading(false)
-                    let state_value = response.data.status
-                    if (state_value === "success") {
-                        localStorage.setItem("user_id", response.data.data.user.user.id)
-                        localStorage.setItem('token', response.data.data.token)
-                        localStorage.setItem('name', response.data.data.user.user.name)
-                        history('/user');
+
+                    if (response.data.data.user.user.active === false) {
+                        alert("Your account is De-activated.")
+                        window.location.reload()
+                    } else {
+
+                        setIsLoading(false)
+                        let state_value = response.data.status
+                        if (state_value === "success") {
+                            localStorage.setItem("user_id", response.data.data.user.user.id)
+                            localStorage.setItem('token', response.data.data.token)
+                            localStorage.setItem('name', response.data.data.user.user.name)
+                            history('/user');
+                        }
+                        localStorage.setItem("access-token", response.data);
                     }
-                    localStorage.setItem("access-token", response.data);
                 }).catch(error => {
                 setIsLoading(false)
                 let state_value = error.response.status
