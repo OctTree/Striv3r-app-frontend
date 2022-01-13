@@ -47,11 +47,6 @@ export default function Login() {
             axios.post('/login', login_parameter, {headers: {'Content-Type': 'application/json', Accept: "*/*"}})
                 .then(response => {
 
-                    if (response.data.data.user.user.active === false) {
-                        alert("Your account is De-activated.")
-                        window.location.reload()
-                    } else {
-
                         setIsLoading(false)
                         let state_value = response.data.status
                         if (state_value === "success") {
@@ -61,7 +56,7 @@ export default function Login() {
                             history('/user');
                         }
                         localStorage.setItem("access-token", response.data);
-                    }
+
                 }).catch(error => {
                 setIsLoading(false)
                 let state_value = error.response.status

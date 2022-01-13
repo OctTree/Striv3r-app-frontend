@@ -18,7 +18,6 @@ const planParameters = {
 export default function Timer(props) {
 
 
-
     const increment = useRef(null)
     const history = useNavigate();
     const [plan, setPlan] = useState(planParameters)
@@ -27,83 +26,96 @@ export default function Timer(props) {
     const [classname, setClassname] = useState("MedRun")
     const [isActive, setIsActive] = useState(false)
     const [isPaused, setIsPaused] = useState(false)
-    const { id } = useParams();
+    const {id} = useParams();
 
 
     useEffect(() => {
 
+
         if (localStorage.getItem("token") !== null) {
-            axios.get('/activity_plans/' + id, {
+
+            axios.get('/users/' + localStorage.getItem("user_id"), {
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: "*/*",
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
-            }).then(res => {
-               let plan_data = res.data.activity_plan
-                setPlan(plan_data)
-                if(plan_data.activity_name === "workout"){
-                    setClassname("MedWork")
-                }
-                else if(plan_data.activity_name === "run"){
-                    setClassname("MedRun")
-                }
-                else if(plan_data.activity_name === "journal"){
-                    setClassname("MedJour")
-                }
-                else if(plan_data.activity_name === "musical"){
-                    setClassname("MedPrac")
-                }
-                else if(plan_data.activity_name === "walk"){
-                    setClassname("MedRun")
-                }
-                else{
-                    setClassname("Med")
-                }
+            }).then(response => {
 
-                plan_data.frequency_finished === plan_data.frequency ? setTimer(0) : setTimer(plan_data.remaining_time)
+                if (response.data.data.user.active === false) {
+                    alert("Your account is De-activated.")
+                    history("/user")
+                } else {
+
+                    axios.get('/activity_plans/' + id, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Accept: "*/*",
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    }).then(res => {
+                        let plan_data = res.data.activity_plan
+                        setPlan(plan_data)
+                        if (plan_data.activity_name === "workout") {
+                            setClassname("MedWork")
+                        } else if (plan_data.activity_name === "run") {
+                            setClassname("MedRun")
+                        } else if (plan_data.activity_name === "journal") {
+                            setClassname("MedJour")
+                        } else if (plan_data.activity_name === "musical") {
+                            setClassname("MedPrac")
+                        } else if (plan_data.activity_name === "walk") {
+                            setClassname("MedRun")
+                        } else {
+                            setClassname("Med")
+                        }
+
+                        plan_data.frequency_finished === plan_data.frequency ? setTimer(0) : setTimer(plan_data.remaining_time)
+                    })
+                }
             })
-        }
-        else {
+        } else {
             history("/login")
         }
     }, []);
 
     useEffect(() => {
 
-
-        if(plan.frequency){
-            if(plan.frequency == plan.frequency_finished){
+        if (plan.frequency) {
+            if (plan.frequency == plan.frequency_finished) {
                 alert("Activity Plan Completed.")
-                return  history("/user")
+                return history("/user")
             }
         }
 
 
-     var  remaining_time = plan.frequency_finished === (plan.frequency - 1) ? 0 : (plan.time * 60)
+        var remaining_time = plan.frequency_finished === (plan.frequency - 1) ? 0 : (plan.time * 60)
 
-        if(timer === 0){
+        if (timer === 0) {
             // eslint-disable-next-line no-restricted-globals
-            if(confirm("Do you want to confirm this activity?") ){
+            if (confirm("Do you want to confirm this activity?")) {
                 setIsPaused(false)
+                let completed = (plan.frequency_finished + 1) === plan.frequency ? 'true' : 'false'
                 const activity_form = {
                     activity_plan: {
                         time_spent: 0,
                         remaining_time: remaining_time,
+                        completed: completed,
                         frequency_finished: (plan.frequency_finished + 1)
                     }
                 }
 
-                axios.put('/activity_plans/' + id, activity_form, {headers: {'Content-Type': 'application/json', Accept: "*/*"
+                axios.put('/activity_plans/' + id, activity_form, {
+                    headers: {
+                        'Content-Type': 'application/json', Accept: "*/*"
                         , Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }})
-                    .then(response => {
-                        console.log(response)
-                        history("/user")
-                    })
-            }
-            else {
+                    }
+                }).then(response => {
+                    history("/user")
+                })
+            } else {
                 let time_remaining = (plan.time * 60)
+                setTimer(time_remaining)
 
                 const activity_form = {
                     activity_plan: {
@@ -112,15 +124,14 @@ export default function Timer(props) {
                     }
                 }
 
-                axios.put('/activity_plans/' + id, activity_form, {headers: {'Content-Type': 'application/json', Accept: "*/*"
+                axios.put('/activity_plans/' + id, activity_form, {
+                    headers: {
+                        'Content-Type': 'application/json', Accept: "*/*"
                         , Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }})
-                    .then(response => {
-                        console.log(response)
-                    })
+                    }
+                })
             }
         }
-
     })
 
     const handleStart = () => {
@@ -147,9 +158,12 @@ export default function Timer(props) {
                 remaining_time: time_remaining
             }
         }
-        axios.put('/activity_plans/' + id, activity_form, {headers: {'Content-Type': 'application/json', Accept: "*/*"
-            , Authorization: `Bearer ${localStorage.getItem('token')}`
-            }})
+        axios.put('/activity_plans/' + id, activity_form, {
+            headers: {
+                'Content-Type': 'application/json', Accept: "*/*"
+                , Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(response => {
                 console.log(response)
             })
@@ -186,13 +200,16 @@ export default function Timer(props) {
                     <div className='buttons mt-3'>
                         {
                             !isActive && !isPaused ?
-                                <button className="timer-activity-plan-button" onClick={handleStart}><img src={StartIcon} alt="some text" /></button>
+                                <button className="timer-activity-plan-button" onClick={handleStart}><img
+                                    src={StartIcon} alt="some text"/></button>
                                 : (
-                                    isPaused ? <button className="timer-activity-plan-button" onClick={handlePause}><img src={StopIcon} alt="some text" /></button> :
-                                        <button className="timer-activity-plan-button" onClick={handleResume}><img src={StartIcon} alt="some text" /></button>
+                                    isPaused ? <button className="timer-activity-plan-button" onClick={handlePause}><img
+                                            src={StopIcon} alt="some text"/></button> :
+                                        <button className="timer-activity-plan-button" onClick={handleResume}><img
+                                            src={StartIcon} alt="some text"/></button>
                                 )
                         }
-                        
+
                     </div>
                 </div>
 
