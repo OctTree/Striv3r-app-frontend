@@ -96,7 +96,7 @@ export default function User() {
       if(confirm("Are you sure, you want to cancel?")){
           axios.put('/users/' + localStorage.getItem("user_id"), { user: { active: 'false' } }, { headers: { 'Content-Type': 'application/json', Accept: "*/*", Authorization: `Bearer ${localStorage.getItem('token')}` } })
               .then(response => {
-                  history("/login")
+                  window.location.reload()
               })
       }
     }

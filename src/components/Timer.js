@@ -82,14 +82,14 @@ export default function Timer(props) {
     useEffect(() => {
 
         if (plan.frequency) {
-            if (plan.frequency == plan.frequency_finished) {
+            if (plan.frequency === plan.frequency_finished) {
                 alert("Activity Plan Completed.")
                 return history("/user")
             }
         }
 
 
-        var remaining_time = plan.frequency_finished === (plan.frequency - 1) ? 0 : (plan.time * 60)
+        var remaining_time = plan.frequency === 1 ? 0 : plan.frequency_finished === (plan.frequency - 1) ? 0 : (plan.time * 60)
 
         if (timer === 0) {
             // eslint-disable-next-line no-restricted-globals
@@ -164,9 +164,6 @@ export default function Timer(props) {
                 , Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
-            .then(response => {
-                console.log(response)
-            })
     }
 
     const handleResume = () => {
