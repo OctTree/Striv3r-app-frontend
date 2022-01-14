@@ -85,7 +85,7 @@ export default function User() {
     }
 
     const handlePointSubmit = (event) => {
-        axios.post('/redeems', { point_redeem: { redeem_point: 300 } }, { headers: { 'Content-Type': 'application/json', Accept: "*/*", Authorization: `Bearer ${localStorage.getItem('token')}` } })
+        axios.post('/redeems', {  }, { headers: { 'Content-Type': 'application/json', Accept: "*/*", Authorization: `Bearer ${localStorage.getItem('token')}` } })
             .then(response => {
                 window.location.reload()
             })
