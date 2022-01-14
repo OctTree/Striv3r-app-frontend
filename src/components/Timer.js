@@ -43,8 +43,23 @@ export default function Timer(props) {
             }).then(response => {
 
                 if (response.data.data.user.active === false) {
-                    alert("Your account is De-activated.")
-                    history("/user")
+                    // eslint-disable-next-line no-restricted-globals
+                    if (confirm("Your account has been deactivated. Would you like to reactivate your account and resume" +
+                        " your payments at previous amount?")) {
+
+                        axios.put('/users/' + localStorage.getItem("user_id"), { user: { active: true } }, {
+                            headers: {
+                                'Content-Type': 'application/json', Accept: "*/*"
+                                , Authorization: `Bearer ${localStorage.getItem('token')}`
+                            }
+                        }).then(response => {
+                            window.location.reload()
+                        })
+                    }
+                    else {
+                        history("/user")
+                    }
+
                 } else {
 
                     axios.get('/activity_plans/' + id, {
@@ -94,7 +109,9 @@ export default function Timer(props) {
         if (timer === 0) {
             // eslint-disable-next-line no-restricted-globals
             if (confirm("Do you want to confirm this activity?")) {
+                clearInterval(increment.current)
                 setIsPaused(false)
+
                 let completed = (plan.frequency_finished + 1) === plan.frequency ? 'true' : 'false'
                 const activity_form = {
                     activity_plan: {
