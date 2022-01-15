@@ -113,6 +113,10 @@
     color: #FFFFFF;
 }
 
+.user-timer-button{
+    cursor: pointer;
+}
+
 .StrivWelPar {
     left: 19px;
     top: 335px;

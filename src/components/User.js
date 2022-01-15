@@ -1,6 +1,6 @@
 import './Design.css'
 import {useState, useEffect} from 'react';
-import {Container} from 'react-bootstrap'
+import {Button, Container, Modal} from 'react-bootstrap'
 import axios from "axios";
 import {useNavigate} from 'react-router-dom';
 import defaultAvatar from "../images/avatar.png"
@@ -31,7 +31,12 @@ export default function User() {
 
     const [user, setUser] = useState(userParameters);
     const [plan, setPlan] = useState(planParameters);
+    const [modalOpen, setModalOpen] = useState('modal fade show')
     const [activityPlans, setActivityPlans] = useState([]);
+
+    const [show, setShow] = useState(false);
+
+    const handleModalClose = () => setShow(false);
 
     useEffect(() => {
 
@@ -85,7 +90,13 @@ export default function User() {
     }
 
     const handlePointSubmit = (event) => {
-        axios.post('/redeems', {  }, { headers: { 'Content-Type': 'application/json', Accept: "*/*", Authorization: `Bearer ${localStorage.getItem('token')}` } })
+        axios.post('/redeems', {}, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: "*/*",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(response => {
                 window.location.reload()
             })
@@ -93,12 +104,18 @@ export default function User() {
 
     const handleCancel = (event) => {
         // eslint-disable-next-line no-restricted-globals
-      if(confirm("Are you sure, you want to cancel?")){
-          axios.put('/users/' + localStorage.getItem("user_id"), { user: { active: 'false' } }, { headers: { 'Content-Type': 'application/json', Accept: "*/*", Authorization: `Bearer ${localStorage.getItem('token')}` } })
-              .then(response => {
-                  window.location.reload()
-              })
-      }
+        if (confirm("Are you sure, you want to cancel?")) {
+            axios.put('/users/' + localStorage.getItem("user_id"), {user: {active: 'false'}}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: "*/*",
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .then(response => {
+                    window.location.reload()
+                })
+        }
     }
 
     const render_checkbox = (size, activity_plan) => {
@@ -125,14 +142,28 @@ export default function User() {
         return check_array;
     }
 
+   const handleReactivate = () => {
+       axios.put('/users/' + localStorage.getItem("user_id"), { user: { active: true } }, {
+           headers: {
+               'Content-Type': 'application/json', Accept: "*/*"
+               , Authorization: `Bearer ${localStorage.getItem('token')}`
+           }
+       }).then(response => {
+           window.location.reload()
+       })
+   }
+
+    const handleTimer = (id) => {
+        user.active === false ? setShow(true) : history(`/timer/${id}`)
+    }
+
     return (
         <div>
+
             <nav className="navbar navbar-light bg-dark justify-content-between">
                 <div className="striv3-nav-bannar">
                     <a href="/users" className="nav-bar-brand">Striv3r</a>
                 </div>
-
-
             </nav>
 
             <Container fluid>
@@ -152,11 +183,14 @@ export default function User() {
                             </div>
                             <div className="mt-1 d-inline-flex">
                                 <div>
-                                    <span className="ml-3 points-text">{user.point_balance}</span><br/>
+                                    <span
+                                        className="ml-3 points-text">{user.point_balance ? user.point_balance : 0}</span><br/>
                                     <span className="text-dark">Point Balance</span>
                                 </div>
                                 <div className="ms-1">
-                                    <span className="ml-3 points-text">{user.total_point_earned}</span> <br/>
+                                    <span
+                                        className="ml-3 points-text">{user.total_point_earned ? user.total_point_earned : 0}</span>
+                                    <br/>
                                     <span className="text-dark">Total Points Earned</span>
                                 </div>
                             </div>
@@ -184,20 +218,37 @@ export default function User() {
                                         <div className="modal-body">
                                             <form>
                                                 <div className="form-group">
-                                                    <input type="radio" name="redeem_point"/> Redeem for a cash value at 3 months
+                                                    <input type="radio" name="redeem_point"/> Redeem for a cash value at
+                                                    3 months
                                                 </div>
                                                 <div className="form-group">
-                                                    <input type="radio" name="redeem_point"/> Redeem on free month subscription at 300 points
+                                                    <input type="radio" name="redeem_point"/> Redeem on free month
+                                                    subscription at 300 points
                                                 </div>
                                             </form>
                                         </div>
                                         <div className="modal-footer">
-                                            <button type="button" className="btn btn-sm btn-primary" onClick={handlePointSubmit}>Confirm
+                                            <button type="button" className="btn btn-sm btn-primary"
+                                                    onClick={handlePointSubmit}>Confirm
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+
+                            <Modal show={show} onHide={handleModalClose}>
+                                <Modal.Body>
+                                    Your account has been deactivated, would you like to reactivate your account and
+                                    resume your payments
+                                    at the previous amount?
+
+                                    <Button variant="primary" className="mt-3" onClick={handleReactivate}>
+                                        Reactivate Account
+                                    </Button>
+                                </Modal.Body>
+                            </Modal>
+
                         </div>
                     </div>
 
@@ -248,8 +299,8 @@ export default function User() {
                             {activityPlans.map((activity_plan, index) => (
                                 activity_plan.week === "week 1" ?
                                     <div>
-                                        <a href={"/timer/" + activity_plan.id}
-                                           className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x
+                                        <a onClick={() => handleTimer(activity_plan.id)}
+                                           className="text-white user-timer-button">{activity_plan.activity_name} {activity_plan.frequency}x
                                             this week for {activity_plan.time} min.</a>
                                         {
                                             render_checkbox(activity_plan.frequency, activity_plan)
@@ -264,8 +315,8 @@ export default function User() {
                             {activityPlans.map((activity_plan, index) => (
                                 activity_plan.week === "week 2" ?
                                     <div>
-                                        <a href={"/timer/" + activity_plan.id}
-                                           className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x
+                                        <a onClick={() => handleTimer(activity_plan.id)}
+                                           className="text-white user-timer-button">{activity_plan.activity_name} {activity_plan.frequency}x
                                             this week for {activity_plan.time} min.</a>
                                         {
                                             render_checkbox(activity_plan.frequency, activity_plan)
@@ -280,8 +331,8 @@ export default function User() {
                             {activityPlans.map((activity_plan, index) => (
                                 activity_plan.week === "week 3" ?
                                     <div>
-                                        <a href={"/timer/" + activity_plan.id}
-                                           className="text-white">{activity_plan.activity_name} {activity_plan.frequency}x
+                                        <a onClick={() => handleTimer(activity_plan.id)}
+                                           className="text-white user-timer-button">{activity_plan.activity_name} {activity_plan.frequency}x
                                             this week for {activity_plan.time} min.</a>
                                         {
                                             render_checkbox(activity_plan.frequency, activity_plan)
