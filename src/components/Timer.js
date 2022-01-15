@@ -96,7 +96,7 @@ export default function Timer(props) {
                     activity_plan: {
                         time_spent: 0,
                         remaining_time: remaining_time,
-                        completed: completed,
+                        completed: true,
                         frequency_finished: (plan.frequency_finished + 1)
                     }
                 }
