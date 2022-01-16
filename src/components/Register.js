@@ -16,7 +16,6 @@ const signup_state = {
     password: '',
     cpassword: '',
     zip: '',
-    referral: "",
     signup_name_error: false,
     signup_phone_error: false,
     signup_email_error: false,
@@ -42,8 +41,7 @@ export default function Register() {
                 password: signUpObject.password,
                 role_id: "2",
                 zip: signUpObject.zip,
-                phone: signUpObject.phone,
-                referral: signUpObject.referral
+                phone: signUpObject.phone
             }
         }
         if (signUpObject.name === '') {
@@ -170,15 +168,6 @@ export default function Register() {
                                onChange={event => setSignUpObject({
                                    ...signUpObject, zip: event.target.value,
                                    signup_zip_error: '', error: ''
-                               })}
-                               aria-describedby="addon-wrapping"/>
-                    </div>
-
-                    <div className="input-group flex-nowrap mt-4">
-                        <span className="input-group-text" id="addon-wrapping"><img src={ReferralIcon} alt="some text" /></span>
-                        <input type="text" className="form-control" placeholder="Referral/Discount" aria-label="zip"
-                               onChange={event => setSignUpObject({
-                                   ...signUpObject, referral: event.target.value
                                })}
                                aria-describedby="addon-wrapping"/>
                     </div>

@@ -128,7 +128,7 @@ export default function Timer(props) {
                 })
             }
         }
-    })
+    }, [timer === 0])
 
     const handleStart = () => {
         setIsActive(true)
