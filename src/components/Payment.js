@@ -190,19 +190,42 @@ export default function Payment() {
                         </div>
 
                         <div className="col-12 mt-3 text-white h2">
-                            <strong>- $20* /mo ($10 rewards)</strong>
+                            <strong>- $30* /mo ($15 rewards)</strong>
                         </div>
 
                         <div className="col-12 mt-3 text-white h2">
-                            <strong>- $45 /3mo (referral req)</strong>
+                            <strong>- $60 /3mo ($50 rewards, referral req)</strong>
                         </div>
 
                         <div className="col-12 mt-3 text-white h2">
                             <strong>- Other (scaling by income)*</strong>
                         </div>
 
-                        <div className="col-12 mt-3 text-white h2">
-                            <strong>- Discount code (list below)</strong>
+                    </div>
+
+                    <div className="col-12 d-flex mt-4 ms-3">
+
+                        <div class="col-2">
+
+                            <input type="text" class="form-control" placeholder="$" aria-label="$"
+                                
+                                aria-describedby="addon-wrapping" />
+                        </div>
+
+
+                        <div class="col-4 ms-1">
+                            <a className="ms-3 h6 text-decoration-none text-white">$amount/min</a>
+                        </div>
+
+                    </div>
+
+                    <div className="col-12 d-flex mt-4">
+
+                        <div class="col-12">
+
+                            <textarea type="text" class="form-control" placeholder="$/min = to .1% of annual income, Reward = 75.90%(value must be >$50)" aria-label="$"
+
+                                aria-describedby="addon-wrapping" />
                         </div>
 
                     </div>
