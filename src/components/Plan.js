@@ -75,7 +75,7 @@ export default function Plan() {
 
                     let state_value = response.status
                     if (state_value === 200) {
-                        history('/user');
+                        history('/payment');
                     }
                     localStorage.setItem("access-token", response.data);
                 }).catch(error => {

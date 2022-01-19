@@ -6,89 +6,155 @@ import ReferralIcon from "../images/VectorRefferal.png"
 import PaymentIcon from "../images/payment_icon.svg"
 import PlanButton from "../images/plan_button.svg";
 import PaymentTwoIcon from "../images/payment_two_icon.svg";
+import {loadStripe} from '@stripe/stripe-js';
+import { CardElement, Elements, useStripe, useElements} from '@stripe/react-stripe-js';
 
-const signup_state = {
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-    cpassword: '',
-    zip: '',
-    referral: "",
-    signup_name_error: false,
-    signup_phone_error: false,
-    signup_email_error: false,
-    signup_password_error: false,
-    signup_cpassword_error: false,
-    signup_zip_error: false,
-    error: ''
+const subscription_state = {
+    referral_code: '',
+    amount: "",
+    subscription_type: ""
 }
+
+const CheckoutForm = () => {
+
+    const [IsLoading, setIsLoading] = useState(false);
+    const [subscriptionObject, setSubscriptionObject] = useState(subscription_state);
+    const history = useNavigate();
+    const stripe = useStripe();
+    const elements = useElements();
+
+    const handSubscriptionTypeChange = (event) => {
+        const { checked, value } = event.currentTarget;
+
+        setSubscriptionObject({
+            ...subscriptionObject, subscription_type: value,
+            error: ''
+        })
+    }
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (elements == null) {
+            return;
+        }
+        else {
+            stripe.createToken(elements.getElement(CardElement)).then((token) => {
+               let subscription_params = {
+                   referral_code: subscriptionObject.referral_code,
+                   amount: subscriptionObject.amount,
+                   subscription_type: subscriptionObject.subscription_type,
+                   last_four_digits: token.token.card.last4,
+                   token: token.token.id
+                }
+
+                axios.post('/subscriptions', subscription_params, { headers: { 'Content-Type': 'application/json', Accept: "*/*", Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                    .then(response => {
+                        setIsLoading(false)
+
+                        let state_value = response.status
+                        if (state_value === 200) {
+                            history('/user');
+                        }
+                        localStorage.setItem("access-token", response.data);
+                    })
+            });
+        }
+
+
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div className="col-7 d-flex ">
+
+                <div className="col-2 input-group flex-nowrap">
+                    <span className="input-group-text" id="addon-wrapping"><img src={Vector} alt="some text"/></span>
+                    <input type="text" className="form-control" placeholder="Name" aria-label="Username"
+                           aria-describedby="addon-wrapping"/>
+                </div>
+
+
+                <div className="col-8 ms-1">
+
+                    <input type="email" className="form-control" placeholder="Address / Apt.." aria-label="email"
+                           aria-describedby="addon-wrapping"/>
+                </div>
+
+            </div>
+
+            <div className="col-12 d-flex mt-4">
+                <CardElement />
+            </div>
+
+            <div className="col-12 mt-2">
+
+                <div className="col-12 mt-3 text-white h2 d-inline-flex">
+                    <strong>Subscription Options:</strong>
+                    <a className="mt-2 ms-3 h6 text-decoration-none text-white">*Why $20+?</a>
+                </div>
+
+                <div className="col-12 mt-3 text-white h2">
+                    <strong><input type="radio" value="30" name="amount" onChange={handSubscriptionTypeChange} /> <span className="ml-2">$30* /mo ($15 rewards)</span></strong>
+                </div>
+
+                <div className="col-12 mt-3 text-white h2">
+                    <strong><input type="radio" value="60" name="amount" onChange={handSubscriptionTypeChange} /> <span
+                        className="ml-2">$60 /3mo ($50 rewards, referral req)</span></strong>
+                </div>
+
+                <div className="col-12 mt-3 text-white h2">
+                    <strong><input type="radio" value="other" name="amount" onChange={handSubscriptionTypeChange} /> <span className="ml-2">Other (scaling by income)*</span></strong>
+                </div>
+
+            </div>
+
+            <div className="col-12 d-flex mt-4 ms-3">
+
+                <div className="col-2">
+
+                    <input type="number" className="form-control" placeholder="$" aria-label="$"
+                           aria-describedby="addon-wrapping"/>
+                </div>
+
+
+                <div className="col-4 ms-1">
+                    <a className="ms-3 h6 text-decoration-none text-white">$amount/min</a>
+                </div>
+
+            </div>
+
+            <div className="col-12 d-flex mt-4">
+
+                <div className="col-12">
+                    <span className="text-white">$/min = to .1% of annual income, Reward = 75.90%(value must be >$50)</span>
+                </div>
+
+            </div>
+
+            <div className="input-group flex-nowrap mt-4">
+                <span className="input-group-text" id="addon-wrapping"><img src={ReferralIcon} alt="some text"/></span>
+                <input type="text" className="form-control" onChange={event => setSubscriptionObject({
+                    ...subscriptionObject, referral_code: event.target.value,
+                    error: ''
+                })} placeholder="Referral/Discount" aria-label="zip"
+                       aria-describedby="addon-wrapping"/>
+            </div>
+
+            <div className="mt-2 text-center">
+                <button
+                    className="strivbut btn btn-success mt-2"
+                    >{"Continue"}</button>
+            </div>
+        </form>
+    );
+};
+
 
 export default function Payment() {
 
-    const [signUpObject, setSignUpObject] = useState(signup_state);
-    const [IsLoading, setIsLoading] = useState(false);
-    const history = useNavigate();
-
-    const handleSignupSubmit = (event) => {
-        event.preventDefault();
-
-
-        const signup_parameter = {
-            user: {
-                name: signUpObject.name,
-                email: signUpObject.email,
-                password: signUpObject.password,
-                role_id: "2",
-                zip: signUpObject.zip,
-                phone: signUpObject.phone,
-                referral: signUpObject.referral
-            }
-        }
-        if (signUpObject.name === '') {
-            setSignUpObject({ ...signUpObject, signup_name_error: true })
-        } else if (signUpObject.email === '') {
-            setSignUpObject({ ...signUpObject, signup_email_error: true })
-        } else if (signUpObject.password === '') {
-            setSignUpObject({ ...signUpObject, signup_password_error: true })
-        } else if (signUpObject.password !== signUpObject.cpassword) {
-            setSignUpObject({ ...signUpObject, signup_cpassword_error: true })
-        } else if (signUpObject.zip === '') {
-            setSignUpObject({ ...signUpObject, signup_zip_error: true })
-        } else {
-            setIsLoading(true)
-            axios.post('/users', signup_parameter, { headers: { 'Content-Type': 'application/json', Accept: "*/*" } })
-                .then(response => {
-                    setIsLoading(false)
-                    console.log(response)
-
-                    let state_value = response.status
-                    if (state_value === 200) {
-
-                        history('/plans/new');
-                    }
-                    localStorage.setItem("token", response.data.data.token);
-                    localStorage.setItem("user_id", response.data.data.user.user.id);
-                }).catch(error => {
-                    setIsLoading(false)
-
-                    if (!error.response) {
-                        history('/login');
-                    } else {
-                        let state_value = error.response.status
-                        if (state_value === 500 || 400 || 401) {
-
-                            setSignUpObject({
-                                ...signUpObject, error: error.response.data.errors[0]
-                            })
-
-                        }
-
-                    }
-                }
-                )
-        }
-    }
+    const stripePromise = loadStripe('pk_test_51KIp05K0Z4NcdBjlcUvkbx3fR38IlCDuEmIPdnkMvSpraHgM7ecntWaQhfQ5l5L3jb0HRdRozaMXmbjsLnpPKhNi004ckqHR3K');
 
     return (
         <div className="col-lg-4 col-sm-4 bg-dark justify-content-center">
@@ -106,148 +172,10 @@ export default function Payment() {
                     <img src={PlanButton} alt="some text" />
                 </div>
 
-                <form onSubmit={handleSignupSubmit} className="mt-2">
+                <Elements stripe={stripePromise}>
+                    <CheckoutForm/>
+                </Elements>
 
-                    <div className="col-7 d-flex ">
-
-                        <div class="col-2 input-group flex-nowrap">
-                            <span class="input-group-text" id="addon-wrapping"><img src={Vector} alt="some text" /></span>
-                            <input type="text" class="form-control" placeholder="Name" aria-label="Username"
-                                onChange={event => setSignUpObject({
-                                    ...signUpObject, name: event.target.value,
-                                    signup_name_error: '', error: ''
-                                })}
-                                aria-describedby="addon-wrapping" />
-                        </div>
-
-
-                        <div class="col-8 ms-1">
-
-                            <input type="email" class="form-control" placeholder="Address / Apt.." aria-label="email"
-                                onChange={event => setSignUpObject({
-                                    ...signUpObject, email: event.target.value,
-                                    signup_email_error: '', error: ''
-                                })}
-                                aria-describedby="addon-wrapping" />
-                        </div>
-
-                    </div>
-
-                    <div className="col-12 d-flex mt-4">
-
-                        <div class="col-8">
-
-                            <input type="text" class="form-control" placeholder="City / State / Zip" aria-label="Username"
-                                onChange={event => setSignUpObject({
-                                    ...signUpObject, name: event.target.value,
-                                    signup_name_error: '', error: ''
-                                })}
-                                aria-describedby="addon-wrapping" />
-                        </div>
-
-
-                        <div class="col-4 ms-1">
-                            <input type="text" class="form-control" placeholder="CSV" aria-label="email"
-                                onChange={event => setSignUpObject({
-                                    ...signUpObject, email: event.target.value,
-                                    signup_email_error: '', error: ''
-                                })}
-                                aria-describedby="addon-wrapping" />
-                        </div>
-
-                    </div>
-
-                    <div className="col-12 d-flex mt-4">
-
-                        <div class="col-8">
-
-                            <input type="text" class="form-control" placeholder="Credit Card Number" aria-label="Username"
-                                onChange={event => setSignUpObject({
-                                    ...signUpObject, name: event.target.value,
-                                    signup_name_error: '', error: ''
-                                })}
-                                aria-describedby="addon-wrapping" />
-                        </div>
-
-
-                        <div class="col-4 ms-1">
-
-                            <input type="email" class="form-control" placeholder="Exp Date" aria-label="email"
-                                onChange={event => setSignUpObject({
-                                    ...signUpObject, email: event.target.value,
-                                    signup_email_error: '', error: ''
-                                })}
-                                aria-describedby="addon-wrapping" />
-                        </div>
-
-                    </div>
-
-                    <div className="col-12 mt-2">
-
-                        <div className="col-12 mt-3 text-white h2 d-inline-flex">
-                            <strong>Subscription Options:</strong>
-                            <a className="mt-2 ms-3 h6 text-decoration-none text-white">*Why $20+?</a>
-                        </div>
-
-                        <div className="col-12 mt-3 text-white h2">
-                            <strong>- $30* /mo ($15 rewards)</strong>
-                        </div>
-
-                        <div className="col-12 mt-3 text-white h2">
-                            <strong>- $60 /3mo ($50 rewards, referral req)</strong>
-                        </div>
-
-                        <div className="col-12 mt-3 text-white h2">
-                            <strong>- Other (scaling by income)*</strong>
-                        </div>
-
-                    </div>
-
-                    <div className="col-12 d-flex mt-4 ms-3">
-
-                        <div class="col-2">
-
-                            <input type="text" class="form-control" placeholder="$" aria-label="$"
-                                
-                                aria-describedby="addon-wrapping" />
-                        </div>
-
-
-                        <div class="col-4 ms-1">
-                            <a className="ms-3 h6 text-decoration-none text-white">$amount/min</a>
-                        </div>
-
-                    </div>
-
-                    <div className="col-12 d-flex mt-4">
-
-                        <div class="col-12">
-
-                            <textarea type="text" class="form-control" placeholder="$/min = to .1% of annual income, Reward = 75.90%(value must be >$50)" aria-label="$"
-
-                                aria-describedby="addon-wrapping" />
-                        </div>
-
-                    </div>
-
-                    <div className="input-group flex-nowrap mt-4">
-                        <span className="input-group-text" id="addon-wrapping"><img src={ReferralIcon} alt="some text" /></span>
-                        <input type="text" className="form-control" placeholder="Referral/Discount" aria-label="zip"
-                            onChange={event => setSignUpObject({
-                                ...signUpObject, referral: event.target.value
-                            })}
-                            aria-describedby="addon-wrapping" />
-                    </div>
-
-                    <div className="mt-2 text-center">
-                        <button
-                            className="strivbut btn btn-success mt-2" onClick={handleSignupSubmit}>{IsLoading ? "Please Wait...." : "Continue"}</button>
-                    </div>
-
-                    <div>
-                        <label for="basic-url" class="form-label text-danger">{signUpObject.error}</label>
-                    </div>
-                </form>
             </div>
         </div >
 

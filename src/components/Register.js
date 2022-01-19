@@ -59,7 +59,6 @@ export default function Register() {
             axios.post('/users', signup_parameter, {headers: {'Content-Type': 'application/json', Accept: "*/*"}})
                 .then(response => {
                     setIsLoading(false)
-                    console.log(response)
 
                     let state_value = response.status
                     if (state_value === 200) {
