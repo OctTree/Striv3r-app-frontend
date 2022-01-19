@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import Vector from "../images/name.svg"
 import ReferralIcon from "../images/VectorRefferal.png"
@@ -7,13 +7,15 @@ import PaymentIcon from "../images/payment_icon.svg"
 import PlanButton from "../images/plan_button.svg";
 import PaymentTwoIcon from "../images/payment_two_icon.svg";
 import {loadStripe} from '@stripe/stripe-js';
-import { CardElement, Elements, useStripe, useElements} from '@stripe/react-stripe-js';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import {CardElement, Elements, useStripe, useElements} from '@stripe/react-stripe-js';
 
 const subscription_state = {
     referral_code: '',
     amount: "",
     subscription_type: "",
-    error : ''
+    error: ''
 }
 
 const CheckoutForm = () => {
@@ -25,7 +27,7 @@ const CheckoutForm = () => {
     const elements = useElements();
 
     const handSubscriptionTypeChange = (event) => {
-        const { checked, value } = event.currentTarget;
+        const {checked, value} = event.currentTarget;
 
         setSubscriptionObject({
             ...subscriptionObject, subscription_type: value,
@@ -37,41 +39,42 @@ const CheckoutForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        
 
         if (elements == null) {
             return;
-        }
-        else if (subscriptionObject.referral_code.length <= 5 && subscriptionObject.referral_code === '') {
+        } else if (subscriptionObject.referral_code.length <= 5 && subscriptionObject.referral_code === '') {
             console.log(subscriptionObject.referral_code.length)
             setSubscriptionObject({
                 ...subscriptionObject, error: 'Referral Code is Required and should be greater than 5 characters.'
             })
-        }
-        else if (subscriptionObject.referral_code.length <= 5) {
+        } else if (subscriptionObject.referral_code.length <= 5) {
 
             setSubscriptionObject({
                 ...subscriptionObject, error: 'Referral Code should be greater than 5 characters.'
             })
-        }
-        else if (subscriptionObject.referral_code === '') {
+        } else if (subscriptionObject.referral_code === '') {
 
             setSubscriptionObject({
                 ...subscriptionObject, error: 'Referral Code is Required.'
             })
-        }
-        else {
+        } else {
             stripe.createToken(elements.getElement(CardElement)).then((token) => {
                 setIsLoading(true)
-               let subscription_params = {
-                   referral_code: subscriptionObject.referral_code,
-                   amount: subscriptionObject.amount,
-                   subscription_type: subscriptionObject.subscription_type,
-                   last_four_digits: token.token.card.last4,
-                   token: token.token.id
+                let subscription_params = {
+                    referral_code: subscriptionObject.referral_code,
+                    amount: subscriptionObject.amount,
+                    subscription_type: subscriptionObject.subscription_type,
+                    last_four_digits: token.token.card.last4,
+                    token: token.token.id
                 }
 
-                axios.post('/subscriptions', subscription_params, { headers: { 'Content-Type': 'application/json', Accept: "*/*", Authorization: `Bearer ${localStorage.getItem('token')}` } })
+                axios.post('/subscriptions', subscription_params, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: "*/*",
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
                     .then(response => {
                         setIsLoading(false)
 
@@ -106,7 +109,7 @@ const CheckoutForm = () => {
             </div>
 
             <div className="col-12 d-flex mt-4">
-                <CardElement />
+                <CardElement/>
             </div>
 
             <div className="col-12 mt-2">
@@ -117,16 +120,18 @@ const CheckoutForm = () => {
                 </div>
 
                 <div className="col-12 mt-3 text-white h2">
-                    <strong><input type="radio" value="30" name="amount" onChange={handSubscriptionTypeChange} /> <span className="ml-2">$30* /mo ($15 rewards)</span></strong>
+                    <strong><input type="radio" value="30" name="amount" onChange={handSubscriptionTypeChange}/> <span
+                        className="ml-2">$30* /mo ($15 rewards)</span></strong>
                 </div>
 
                 <div className="col-12 mt-3 text-white h2">
-                    <strong><input type="radio" value="60" name="amount" onChange={handSubscriptionTypeChange} /> <span
+                    <strong><input type="radio" value="60" name="amount" onChange={handSubscriptionTypeChange}/> <span
                         className="ml-2">$60 /3mo ($50 rewards, referral req)</span></strong>
                 </div>
 
                 <div className="col-12 mt-3 text-white h2">
-                    <strong><input type="radio" value="other" name="amount" onChange={handSubscriptionTypeChange} /> <span className="ml-2">Other (scaling by income)*</span></strong>
+                    <strong><input type="radio" value="other" name="amount" onChange={handSubscriptionTypeChange}/>
+                        <span className="ml-2">Other (scaling by income)*</span></strong>
                 </div>
 
             </div>
@@ -143,13 +148,10 @@ const CheckoutForm = () => {
                 <div className="col-4 ms-1">
                     <a className="ms-3 h6 text-decoration-none text-white">$amount/min</a>
                 </div>
-
-            </div>
-
-            <div className="col-12 d-flex mt-4">
-
-                <div className="col-12">
-                    <span className="text-white">$/min = to .1% of annual income, Reward = 75.90%(value must be >$50)</span>
+                <div className="col-2 ms-1">
+                    <Tippy content="$/min = to .1% of annual income, Reward = 75.90%(value must be >$50)">
+                        <span className="text-white payment-tooltip">?</span>
+                    </Tippy>
                 </div>
 
             </div>
@@ -176,6 +178,14 @@ const CheckoutForm = () => {
 
 export default function Payment() {
 
+    const history = useNavigate();
+
+    useEffect(() => {
+        if (localStorage.getItem("token") === null) {
+            history.push("/")
+        }
+    }, [localStorage.getItem('token')])
+
     const stripePromise = loadStripe('pk_test_51KIp05K0Z4NcdBjlcUvkbx3fR38IlCDuEmIPdnkMvSpraHgM7ecntWaQhfQ5l5L3jb0HRdRozaMXmbjsLnpPKhNi004ckqHR3K');
 
     return (
@@ -183,15 +193,15 @@ export default function Payment() {
             <div className="p-4">
 
                 <div className="mt-3 text-center">
-                    <img src={PaymentIcon} alt="some text" className="w-30 h-30" />
+                    <img src={PaymentIcon} alt="some text" className="w-30 h-30"/>
                 </div>
 
                 <div className="mt-3 text-center">
-                    <img src={PaymentTwoIcon} alt="some text" />
+                    <img src={PaymentTwoIcon} alt="some text"/>
                 </div>
 
                 <div className="col-12 mt-1 text-center">
-                    <img src={PlanButton} alt="some text" />
+                    <img src={PlanButton} alt="some text"/>
                 </div>
 
                 <Elements stripe={stripePromise}>
@@ -199,7 +209,7 @@ export default function Payment() {
                 </Elements>
 
             </div>
-        </div >
+        </div>
 
     );
 }
