@@ -12,7 +12,8 @@ import { CardElement, Elements, useStripe, useElements} from '@stripe/react-stri
 const subscription_state = {
     referral_code: '',
     amount: "",
-    subscription_type: ""
+    subscription_type: "",
+    error : ''
 }
 
 const CheckoutForm = () => {
@@ -36,11 +37,32 @@ const CheckoutForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        
+
         if (elements == null) {
             return;
         }
+        else if (subscriptionObject.referral_code.length <= 5 && subscriptionObject.referral_code === '') {
+            console.log(subscriptionObject.referral_code.length)
+            setSubscriptionObject({
+                ...subscriptionObject, error: 'Referral Code is Required and should be greater than 5 characters.'
+            })
+        }
+        else if (subscriptionObject.referral_code.length <= 5) {
+
+            setSubscriptionObject({
+                ...subscriptionObject, error: 'Referral Code should be greater than 5 characters.'
+            })
+        }
+        else if (subscriptionObject.referral_code === '') {
+
+            setSubscriptionObject({
+                ...subscriptionObject, error: 'Referral Code is Required.'
+            })
+        }
         else {
             stripe.createToken(elements.getElement(CardElement)).then((token) => {
+                setIsLoading(true)
                let subscription_params = {
                    referral_code: subscriptionObject.referral_code,
                    amount: subscriptionObject.amount,
@@ -61,7 +83,6 @@ const CheckoutForm = () => {
                     })
             });
         }
-
 
     };
 
@@ -141,11 +162,12 @@ const CheckoutForm = () => {
                 })} placeholder="Referral/Discount" aria-label="zip"
                        aria-describedby="addon-wrapping"/>
             </div>
+            <label for="basic-url" class="form-label text-danger">{subscriptionObject.error}</label>
 
             <div className="mt-2 text-center">
                 <button
                     className="strivbut btn btn-success mt-2"
-                    >{"Continue"}</button>
+                >{IsLoading ? "Please Wait.." : "Continue"}</button>
             </div>
         </form>
     );
