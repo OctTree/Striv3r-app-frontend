@@ -33,6 +33,7 @@ export default function User() {
     const [plan, setPlan] = useState(planParameters);
     const [modalOpen, setModalOpen] = useState('modal fade show')
     const [activityPlans, setActivityPlans] = useState([]);
+    const [planDetails, setPlanDetails] = useState([]);
 
     const [show, setShow] = useState(false);
 
@@ -48,7 +49,7 @@ export default function User() {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             }).then(res => {
-
+                setPlanDetails(res.data.data.plan_details)
                 if (res.data.data.plans.length === 0) {
                     alert("You don't have any Plan. please update your plan.")
                     history('/plans/new');
@@ -277,8 +278,14 @@ export default function User() {
                             </div>
                         </div>
                         <div className="col-12">
-                            <strong className="text-white">My goal is to meditate {plan.days_per_week} / week
-                                for {plan.minutes} minutes / session</strong>
+                            {
+                                planDetails.map(function(val){
+                               return     <div>
+                                        <strong className="text-white">My goal is to {val.name} {val.days} / week
+                                            for {val.time} minutes / session</strong>
+                                    </div>
+                                })
+                            }
                         </div>
                     </div>
 
