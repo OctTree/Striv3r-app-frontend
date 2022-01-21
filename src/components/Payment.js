@@ -102,7 +102,7 @@ const CheckoutForm = () => {
 
                 <div className="col-8 ms-1">
 
-                    <input type="email" className="form-control" placeholder="Address / Apt.." aria-label="email"
+                    <input type="text" className="form-control" placeholder="Address / Apt.." aria-label="email"
                            aria-describedby="addon-wrapping"/>
                 </div>
 
