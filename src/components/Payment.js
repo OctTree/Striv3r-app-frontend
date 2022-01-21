@@ -57,7 +57,7 @@ const CheckoutForm = () => {
             })
         } else {
             stripe.createToken(elements.getElement(CardElement)).then((token) => {
-               if (token.error.message == "Your card number is incomplete."){
+               if (token.error){
                    window.location.reload()
                }
                else {
