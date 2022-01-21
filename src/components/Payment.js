@@ -39,11 +39,9 @@ const CheckoutForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-
         if (elements == null) {
             return;
         } else if (subscriptionObject.referral_code.length <= 5 && subscriptionObject.referral_code === '') {
-            console.log(subscriptionObject.referral_code.length)
             setSubscriptionObject({
                 ...subscriptionObject, error: 'Referral Code is Required and should be greater than 5 characters.'
             })
@@ -59,31 +57,36 @@ const CheckoutForm = () => {
             })
         } else {
             stripe.createToken(elements.getElement(CardElement)).then((token) => {
-                setIsLoading(true)
-                let subscription_params = {
-                    referral_code: subscriptionObject.referral_code,
-                    amount: subscriptionObject.amount,
-                    subscription_type: subscriptionObject.subscription_type,
-                    last_four_digits: token.token.card.last4,
-                    token: token.token.id
-                }
+               if (token.error.message == "Your card number is incomplete."){
+                   window.location.reload()
+               }
+               else {
+                   setIsLoading(true)
+                   let subscription_params = {
+                       referral_code: subscriptionObject.referral_code,
+                       amount: subscriptionObject.amount,
+                       subscription_type: subscriptionObject.subscription_type,
+                       last_four_digits: token.token.card.last4,
+                       token: token.token.id
+                   }
 
-                axios.post('/subscriptions', subscription_params, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Accept: "*/*",
-                        Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }
-                })
-                    .then(response => {
-                        setIsLoading(false)
+                   axios.post('/subscriptions', subscription_params, {
+                       headers: {
+                           'Content-Type': 'application/json',
+                           Accept: "*/*",
+                           Authorization: `Bearer ${localStorage.getItem('token')}`
+                       }
+                   })
+                       .then(response => {
+                           setIsLoading(false)
 
-                        let state_value = response.status
-                        if (state_value === 200) {
-                            history('/user');
-                        }
-                        localStorage.setItem("access-token", response.data);
-                    })
+                           let state_value = response.status
+                           if (state_value === 200) {
+                               history('/user');
+                           }
+                           localStorage.setItem("access-token", response.data);
+                       })
+               }
             });
         }
 
