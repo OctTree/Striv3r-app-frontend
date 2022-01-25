@@ -143,7 +143,12 @@ const CheckoutForm = () => {
 
                 <div className="col-2">
 
-                    <input type="number" className="form-control" placeholder="$" aria-label="$"
+                    <input type="number" className="form-control"
+                           onChange={event => setSubscriptionObject({
+                               ...subscriptionObject, amount: event.target.value,
+                               error: ''
+                           })}
+                           placeholder="$" aria-label="$"
                            aria-describedby="addon-wrapping"/>
                 </div>
 
