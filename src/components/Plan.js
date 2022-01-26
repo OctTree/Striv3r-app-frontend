@@ -139,7 +139,7 @@ export default function Plan() {
 
                             /><span className="text-white ms-2">Days/Wk</span>
                         </div>
-                        <div className="col-6">
+                        <div className="col-6 ms-4">
                             <input type="number" className="col-6 plan-input-box"
 
                                 onChange={event => setplanObject({
@@ -221,16 +221,16 @@ export default function Plan() {
                         <div className="col-3 ms-2">
                             <input type="checkbox" value="monday"
                                 onChange={handleChange}
-                                className="plan-input-box" /><span className="text-white ms-2">Mon</span>
+                                className="plan-input-box" /><span className="text-white ms-0">Mon</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" value="tuesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">Tues</span>
+                            <input type="checkbox" value="tuesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-0">Tues</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" value="wednesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">Wed</span>
+                            <input type="checkbox" value="wednesday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-0">Wed</span>
                         </div>
                         <div className="col-3">
-                            <input type="checkbox" value="thursday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-2">Thurs</span>
+                            <input type="checkbox" value="thursday" onChange={handleChange} className="plan-input-box" /><span className="text-white ms-0">Thurs</span>
                         </div>
                     </div>
 
