@@ -143,6 +143,10 @@ export default function User() {
         return check_array;
     }
 
+    const handleGoal = () => {
+      history("/plans/edit")
+    }
+
    const handleReactivate = () => {
        axios.put('/users/' + localStorage.getItem("user_id"), { user: { active: true } }, {
            headers: {
@@ -274,7 +278,7 @@ export default function User() {
 
                             </div>
                             <div className="col-3">
-                                <strong className="text-white">Edit Goals</strong>
+                                <strong className="text-white"> <button className="btn btn-sm btn-link logout-button" onClick={handleGoal}>Edit Goal</button></strong>
                             </div>
                         </div>
                         <div className="col-12">
@@ -298,7 +302,7 @@ export default function User() {
 
                             </div>
                             <div className="col-3">
-                                <strong className="text-white">Edit Plan</strong>
+                                <strong className="text-white"><button className="btn btn-sm btn-link logout-button" onClick={handleGoal}>Edit Plan</button></strong>
                             </div>
                         </div>
                         <div className="col-12">
