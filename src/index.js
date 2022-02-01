@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
-axios.defaults.baseURL = 'https://striv3r-backend.herokuapp.com/api/v1';
+axios.defaults.baseURL = 'https://striv3r-prod-backend.herokuapp.com/api/v1';
 
 ReactDOM.render(
   <React.StrictMode>
