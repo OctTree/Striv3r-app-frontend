@@ -151,7 +151,8 @@ export default function User() {
        axios.put('/users/' + localStorage.getItem("user_id"), { user: { active: true } }, {
            headers: {
                'Content-Type': 'application/json', Accept: "*/*"
-               , Authorization: `Bearer ${localStorage.getItem('token')}`
+               , Authorization: `Bearer ${localStorage.getItem('token')}`,
+               'Access-Control-Allow-Origin': '*'
            }
        }).then(response => {
            window.location.reload()

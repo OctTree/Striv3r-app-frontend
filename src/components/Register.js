@@ -56,7 +56,7 @@ export default function Register() {
             setSignUpObject({...signUpObject, signup_zip_error: true})
         } else {
             setIsLoading(true)
-            axios.post('/users', signup_parameter, {headers: {'Content-Type': 'application/json', Accept: "*/*"}})
+            axios.post('/users', signup_parameter, {headers: {'Content-Type': 'application/json', Accept: "*/*", 'Access-Control-Allow-Origin': '*' }})
                 .then(response => {
                     setIsLoading(false)
 
