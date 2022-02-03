@@ -195,7 +195,7 @@ export default function Plan() {
 
                     <div className="col-12 mt-4 d-flex">
                         <div className="col-6 ms-2">
-                            <input type="number" className="plan-input-box"
+                            <input type="number" className="plan-form-control"
                                    onChange={event => setplanObject({
                                        ...planObject, frequency_days: event.target.value,
                                        error: ''
@@ -203,7 +203,7 @@ export default function Plan() {
                             /><span className="text-white ms-2">Days/Wk</span>
                         </div>
                         <div className="col-6">
-                            <input type="number" className="col-6 plan-input-box"
+                            <input type="number" className="col-6 plan-form-control"
                                    onChange={event => setplanObject({
                                        ...planObject, frequency_minutes: event.target.value,
                                        error: ''
