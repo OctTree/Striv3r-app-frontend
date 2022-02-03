@@ -102,16 +102,25 @@ const CheckoutForm = () => {
                     <input type="text" className="form-control" placeholder="Name" aria-label="Username"
                            aria-describedby="addon-wrapping"/>
                 </div>
-
-                <div className="col-8 ms-1">
-                    <input type="text" className="form-control" placeholder="Address / Apt.." aria-label="email"
-                           aria-describedby="addon-wrapping"/>
-                </div>
-
             </div>
 
             <div className="col-12 d-flex mt-4">
                 <CardElement/>
+            </div>
+
+            <div className="col-7 d-flex mt-4">
+
+                <div className="col-2 input-group flex-nowrap">
+                    <span className="input-group-text" id="addon-wrapping"><img src={Vector} alt="some text"/></span>
+                    <input type="text" className="form-control" placeholder="Address 1" aria-label="Username"
+                           aria-describedby="addon-wrapping"/>
+                </div>
+
+                <div className="col-8 ms-1">
+                    <input type="text" className="form-control" placeholder="Address 2" aria-label="email"
+                           aria-describedby="addon-wrapping"/>
+                </div>
+
             </div>
 
             <div className="col-7 d-flex mt-4">
@@ -128,6 +137,7 @@ const CheckoutForm = () => {
                 </div>
 
             </div>
+
 
             <div className="col-12 mt-2">
 
