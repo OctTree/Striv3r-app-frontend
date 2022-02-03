@@ -130,7 +130,7 @@ export default function Plan() {
 
                     <div className="col-12 mt-4 d-flex">
                         <div className="col-6 ms-2">
-                            <input type="number" className="plan-input-box"
+                            <input type="number" className="plan-form-control"
 
                                 onChange={event => setplanObject({
                                     ...planObject, days_per_week: event.target.value,
@@ -140,7 +140,7 @@ export default function Plan() {
                             /><span className="text-white ms-2">Days/Wk</span>
                         </div>
                         <div className="col-6 ms-4">
-                            <input type="number" className="col-6 plan-input-box"
+                            <input type="number" className="col-6 plan-form-control"
 
                                 onChange={event => setplanObject({
                                     ...planObject, minutes: event.target.value,
@@ -169,7 +169,7 @@ export default function Plan() {
                         <div className="col-3">
                             <input type="checkbox" name="act" value="workout"
                                 onChange={handActivityTypeChange}
-                                className="plan-input-box" /><span className="text-white ms-1">Work</span>
+                                className="plan-input-box" /><span className="text-white ms-1">Workout</span>
                         </div>
                         <div className="col-3">
                             <input type="checkbox" name="act" value="journal"

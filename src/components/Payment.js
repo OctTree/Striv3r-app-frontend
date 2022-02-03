@@ -133,7 +133,7 @@ const CheckoutForm = () => {
 
                 <div className="col-12 mt-3 text-white h2 d-inline-flex">
                     <strong>Subscription Options:</strong>
-                    <a className="mt-2 ms-3 h6 text-decoration-none text-white">*Why $20+?</a>
+                    <a className="mt-2 ms-3 h6 text-decoration-none text-white">*Why $30+?</a>
                 </div>
 
                 <div className="col-12 mt-3 text-white h2">

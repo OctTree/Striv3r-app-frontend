@@ -408,6 +408,14 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.plan-form-control{
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    color: #212529;
+}
+
 .payment-tooltip{
     font-size: 20px;
     font-weight: 700;
