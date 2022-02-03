@@ -138,6 +138,16 @@ const CheckoutForm = () => {
 
             </div>
 
+            <div className="col-7 d-flex mt-4">
+
+                <div className="col-2 input-group flex-nowrap">
+                    <span className="input-group-text" id="addon-wrapping"><img src={Vector} alt="some text"/></span>
+                    <input type="text" className="form-control" placeholder="Zip" aria-label="Username"
+                           aria-describedby="addon-wrapping"/>
+                </div>
+
+            </div>
+
 
             <div className="col-12 mt-2">
 
