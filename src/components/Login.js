@@ -59,7 +59,7 @@ export default function Login() {
 
                 }).catch(error => {
                 setIsLoading(false)
-                let state_value = error.response.status
+                let state_value = error.response && error.response.status
                 if (state_value === 401) {
                     if (error.response.data.errors[0] === "Please confirm your account") {
 
