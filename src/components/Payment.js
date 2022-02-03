@@ -41,16 +41,16 @@ const CheckoutForm = () => {
 
         if (elements == null) {
             return;
-        } else if (subscriptionObject.referral_code.length <= 5 && subscriptionObject.referral_code === '') {
+        } else if (subscriptionObject.referral_code.length <= 5 && subscriptionObject.referral_code === '' && subscriptionObject.subscription_type === '60') {
             setSubscriptionObject({
                 ...subscriptionObject, error: 'Referral Code is Required and should be greater than 5 characters.'
             })
-        } else if (subscriptionObject.referral_code.length <= 5) {
+        } else if (subscriptionObject.referral_code.length <= 5 && subscriptionObject.subscription_type === '60') {
 
             setSubscriptionObject({
                 ...subscriptionObject, error: 'Referral Code should be greater than 5 characters.'
             })
-        } else if (subscriptionObject.referral_code === '') {
+        } else if (subscriptionObject.referral_code === '' && subscriptionObject.subscription_type === '60') {
 
             setSubscriptionObject({
                 ...subscriptionObject, error: 'Referral Code is Required.'
@@ -102,9 +102,7 @@ const CheckoutForm = () => {
                            aria-describedby="addon-wrapping"/>
                 </div>
 
-
                 <div className="col-8 ms-1">
-
                     <input type="text" className="form-control" placeholder="Address / Apt.." aria-label="email"
                            aria-describedby="addon-wrapping"/>
                 </div>
