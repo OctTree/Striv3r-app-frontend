@@ -228,7 +228,7 @@ export default function Payment() {
         }
     }, [localStorage.getItem('token')])
 
-    const stripePromise = loadStripe('pk_test_51KIp05K0Z4NcdBjlcUvkbx3fR38IlCDuEmIPdnkMvSpraHgM7ecntWaQhfQ5l5L3jb0HRdRozaMXmbjsLnpPKhNi004ckqHR3K');
+    const stripePromise = loadStripe('pk_live_51KIp05K0Z4NcdBjl8QVlCNcMejcAuILDe4pxeHRLEByMIN4iDRGFe4RYQwtxhfBsLmdGYvG35EAslriWniTH8fus00Ps1fLZKr');
 
     return (
         <div className="col-lg-4 col-sm-4 bg-dark justify-content-center">
