@@ -188,10 +188,10 @@ const CheckoutForm = () => {
 
 
                 <div className="col-4 ms-1">
-                    <a className="ms-3 h6 text-decoration-none text-white">$amount/month</a>
+                    <a className="ms-3 h6 text-decoration-none text-white">$amount/mo</a>
                 </div>
                 <div className="col-2 ms-1">
-                    <Tippy content="$/min = to .1% of annual income, Reward = 75.90%(value must be >$50)">
+                    <Tippy content="$/mo = to .1% of annual income, Reward = 75.90%(value must be >$50)">
                         <span className="text-white payment-tooltip">?</span>
                     </Tippy>
                 </div>
