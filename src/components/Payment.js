@@ -57,39 +57,47 @@ const CheckoutForm = () => {
             })
         } else {
             stripe.createToken(elements.getElement(CardElement)).then((token) => {
-               if (token.error){
-                   window.location.reload()
-               }
-               else {
-                   setIsLoading(true)
-                   let subscription_params = {
-                       referral_code: subscriptionObject.referral_code,
-                       amount: subscriptionObject.amount,
-                       subscription_type: subscriptionObject.subscription_type,
-                       last_four_digits: token.token.card.last4,
-                       token: token.token.id
-                   }
+                if (token.error) {
+                    window.location.reload()
+                } else {
+                    setIsLoading(true)
+                    let subscription_params = {
+                        referral_code: subscriptionObject.referral_code,
+                        amount: subscriptionObject.amount,
+                        subscription_type: subscriptionObject.subscription_type,
+                        last_four_digits: token.token.card.last4,
+                        token: token.token.id
+                    }
 
-                   axios.post('/subscriptions', subscription_params, {
-                       headers: {
-                           'Content-Type': 'application/json',
-                           Accept: "*/*",
-                           Authorization: `Bearer ${localStorage.getItem('token')}`
-                       }
-                   })
-                       .then(response => {
-                           setIsLoading(false)
+                    axios.post('/subscriptions', subscription_params, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Accept: "*/*",
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    }).then(response => {
+                        setIsLoading(false)
 
-                           let state_value = response.status
-                           if (state_value === 200) {
-                               history('/user');
-                           }
-                           localStorage.setItem("access-token", response.data);
-                       })
-               }
+                        let state_value = response.status
+                        if (state_value === 200) {
+                            history('/user');
+                        }
+                        localStorage.setItem("access-token", response.data);
+                    }).catch(error => {
+                        setIsLoading(false)
+                        if (!error.response) {
+                            history('/user');
+                        } else {
+                            let state_value = error.response.status
+                            if (state_value === 500) {
+                                history("/error")
+                            }
+
+                        }
+                    })
+                }
             });
         }
-
     };
 
     return (

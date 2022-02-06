@@ -81,20 +81,20 @@ export default function Plan() {
                 }).catch(error => {
                     setIsLoading(false)
                     if (!error.response) {
-                        history('/login');
+                        history('/payment');
                     } else {
                         let state_value = error.response.status
-                        if (state_value === 500 || 400 || 401) {
+                        if (state_value === 400) {
 
                             setplanObject({
                                 ...planObject, error: error.response.data.errors[0]
                             })
-
                         }
-
+                        else if(state_value === 500){
+                            history("/error")
+                        }
                     }
-                }
-                )
+                })
         }
     }
 

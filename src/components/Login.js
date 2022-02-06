@@ -37,7 +37,6 @@ export default function Login() {
                 login_email_error: 'Email is Required',
                 login_password_error: 'Password is Required'
             })
-            console.log(loginObject.login_email_error)
         } else if (loginObject.email === '') {
             setloginObject({...loginObject, login_email_error: 'Email is Required'})
         } else if (loginObject.password === '') {
@@ -66,10 +65,13 @@ export default function Login() {
                         setloginObject({
                             ...loginObject, error: error.response.data.errors[0]
                         })
-                    } else {
+                    } else if(state_value === 400) {
                         setloginObject({
                             ...loginObject, error: error.response.data.errors[0]
                         })
+                    }
+                    else if(state_value === 500) {
+                       history("/error")
                     }
                 }
             });

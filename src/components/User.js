@@ -87,6 +87,15 @@ export default function User() {
             localStorage.removeItem("name")
             localStorage.removeItem("user_id")
             history('/login');
+        }).catch(error => {
+            if (!error.response) {
+                history('/user');
+            } else {
+                let state_value = error.response.status
+                if (state_value === 500) {
+                    history("/error")
+                }
+            }
         })
     }
 
@@ -97,10 +106,18 @@ export default function User() {
                 Accept: "*/*",
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
-        })
-            .then(response => {
+        }).then(response => {
                 window.location.reload()
-            })
+            }).catch(error => {
+            if (!error.response) {
+                history('/user');
+            } else {
+                let state_value = error.response.status
+                if (state_value === 500) {
+                    history("/error")
+                }
+            }
+        })
     }
 
     const handleCancel = (event) => {
@@ -112,10 +129,18 @@ export default function User() {
                     Accept: "*/*",
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
-            })
-                .then(response => {
+            }).then(response => {
                     window.location.reload()
-                })
+                }).catch(error => {
+                if (!error.response) {
+                    history('/user');
+                } else {
+                    let state_value = error.response.status
+                    if (state_value === 500) {
+                        history("/error")
+                    }
+                }
+            })
         }
     }
 
