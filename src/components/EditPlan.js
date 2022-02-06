@@ -22,7 +22,19 @@ export default function Plan() {
                 .then(response => {
                     setIsLoading(false)
                     setPlanInitialObject(response.data.plan)
-                })
+                }).catch(error => {
+                    setIsLoading(false)
+
+                    if (!error.response) {
+                        history('/user');
+                    } else {
+                        let state_value = error.response.status
+                        if (state_value === 500) {
+                            history("/error")
+                        }
+                    }
+                }
+            )
         }
     }, [localStorage.getItem('token')])
 

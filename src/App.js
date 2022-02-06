@@ -8,6 +8,7 @@ import Plan from "./components/Plan";
 import Payment from "./components/Payment"
 import Timer from "./components/Timer"
 import EditPlan from "./components/EditPlan"
+import ServerDown from "./components/ServerDown";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/payment" exact element={<Payment />}></Route>
                 <Route path="/timer/:id" exact element={<Timer />}></Route>
                 <Route path="/plans/edit" exact element={<EditPlan />}></Route>
+                <Route path="/error" exact element={<ServerDown />}></Route>
                 <Route path="*" element={<PageNotFound/>}/>
             </Routes >
         </BrowserRouter>

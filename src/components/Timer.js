@@ -108,6 +108,15 @@ export default function Timer(props) {
                     }
                 }).then(response => {
                     history("/user")
+                }).catch(error => {
+                    if (!error.response) {
+                        history('/user');
+                    } else {
+                        let state_value = error.response.status
+                        if (state_value === 500) {
+                            history("/error")
+                        }
+                    }
                 })
             } else {
                 let time_remaining = (plan.time * 60)
@@ -124,6 +133,15 @@ export default function Timer(props) {
                     headers: {
                         'Content-Type': 'application/json', Accept: "*/*"
                         , Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                }).catch(error => {
+                    if (!error.response) {
+                        history('/user');
+                    } else {
+                        let state_value = error.response.status
+                        if (state_value === 500) {
+                            history("/error")
+                        }
                     }
                 })
             }
